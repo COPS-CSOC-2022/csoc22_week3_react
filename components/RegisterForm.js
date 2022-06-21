@@ -27,11 +27,11 @@ export default function Register() {
       username === "" ||
       password === ""
     ) {
-      console.log("Please fill all the fields correctly.");
+      alert("Please fill all the fields correctly.");
       return false;
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log("Please enter a valid email address.");
+      alert("Please enter a valid email address.");
       return false;
     }
     return true;
@@ -54,12 +54,12 @@ export default function Register() {
 
       axios
         .post("auth/register/", dataForApiRequest)
-        .then(function ({ data, status }) {
+        .then(function ({ data }) {
           setToken(data.token);
-          router.push("/");
+          router.push("/login/");
         })
         .catch(function (err) {
-          console.log(
+          alert(
             "An account using same email or username is already created"
           );
         });

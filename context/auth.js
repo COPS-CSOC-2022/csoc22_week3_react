@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
   const deleteToken = () => removeCookies("token");
   const logout = () => {
     deleteToken();
+    localStorage.clear();
     router.push("/login");
   };
 
@@ -30,8 +31,8 @@ export const AuthProvider = ({ children }) => {
         .then((response) => {
           setAvatarImage(
             "https://ui-avatars.com/api/?name=" +
-              response.data.name +
-              "&background=fff&size=33&color=007bff"
+            response.data.name +
+            "&background=fff&size=33&color=007bff"
           );
           setProfileName(response.data.name);
         })

@@ -1,18 +1,13 @@
 import React, { useState } from "react";
 import axios from "../utils/axios";
-import { useAuth } from "../context/auth";
 import { useRouter } from "next/router";
 
 export default function RegisterForm() {
-  const { setToken } = useAuth();
   const router = useRouter();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const login = () => {
-    console.log(username);
-    console.log(password);
-
     axios
       .post("auth/login/", {
         username: username,
@@ -20,9 +15,8 @@ export default function RegisterForm() {
       })
       .then(function ({ data, status }) {
         console.log(data);
+        localStorage.setItem("token", data.token);
         console.log(status);
-
-        // redirect to home page
         router.push("/");
 
       })
@@ -31,15 +25,6 @@ export default function RegisterForm() {
         alert("Invalid username or password");
       }
       );
-
-
-
-    /***
-     * @todo Complete this function.
-     * @todo 1. Write code for form validation.
-     * @todo 2. Fetch the auth token from backend and login the user.
-     * @todo 3. Set the token in the context (See context/auth.js)
-     */
   }
 
   return (
@@ -79,4 +64,4 @@ export default function RegisterForm() {
     </div>
   );
 
-};
+}
