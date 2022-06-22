@@ -18,14 +18,12 @@ export default function RegisterForm() {
         localStorage.setItem("token", data.token);
         console.log(status);
         router.push("/");
-
       })
       .catch(function (error) {
         console.log(error);
         alert("Invalid username or password");
-      }
-      );
-  }
+      });
+  };
 
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col">
@@ -49,7 +47,9 @@ export default function RegisterForm() {
             id="inputPassword"
             placeholder="Password"
             value={password}
-            onChange={(e) => { setPassword(e.target.value) }}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
 
           <button
@@ -63,5 +63,4 @@ export default function RegisterForm() {
       </div>
     </div>
   );
-
 }

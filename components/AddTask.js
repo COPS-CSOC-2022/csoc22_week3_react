@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import axios from "../utils/axios";
 import { useRouter } from "next/router";
+import Home from "../pages/index";
+
 
 export default function AddTask() {
   const [Task, setTask] = useState("");
   const addTask = () => {
     const The_data = {
       title: Task
+    }
+    if (Task == "" || Task == null) {
+      alert("invalid Task");
+      return;
     }
     axios({
       url: 'todo/create/',
@@ -16,12 +22,11 @@ export default function AddTask() {
         'Authorization': 'token ' + localStorage.getItem('token')
       }
     }).then(function () {
-      console.log(121);
-      console.log('hi');
+      setTask("");
+      Home();
     }
     ).catch(function (err) {
       console.log(err);
-      console.log(123);
     }
     )
   };
