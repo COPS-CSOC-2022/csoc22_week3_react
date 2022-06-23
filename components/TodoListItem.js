@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 
 export default function TodoListItem(ids, targets) {
 
-  // console.log(ids, targets);
 
   if (targets == 'delete') {
     deleteTask(ids)
@@ -15,12 +14,8 @@ export default function TodoListItem(ids, targets) {
   if (targets == 'edit') {
     editTask(ids)
   }
-  if (targets == 'update') {
-    updateTask(ids)
-  }
 
   function deleteTask(id) {
-    // console.log(id + "delete");
     const the_task = document.getElementById(id)
 
     axios({
@@ -37,36 +32,71 @@ export default function TodoListItem(ids, targets) {
       alert('something wrong!,do it again')
       console.log(err);
     })
-
-
-    /**
-     * @todo Complete this function.
-     * @todo 1. Send the request to delete the task to the backend server.
-     * @todo 2. Remove the task from the dom.
-     */
   }
 
   function editTask(id) {
-    // console.log(id + "edit");
-    /**
-     * @todo Complete this function.
-     * @todo 1. Update the dom accordingly
-     */
+    const the_task = document.getElementById(id)
+    const input = document.getElementById('input-button-' + id);
+    const done_div = document.getElementById('done-button-' + id);
+    const task_title = document.getElementById('task-' + id);
+    const task_action = document.getElementById('task-actions-' + id);
+
+    the_task.classList.remove('hideme');
+    input.classList.remove('hideme');
+    done_div.classList.remove('hideme');
+    task_title.classList.add('hideme');
+    task_action.classList.add('hideme');
+
+    const done = document.getElementById('done' + id);
+    done.addEventListener('click', () => {
+      const input_value = input.value;
+      if (input_value === '') {
+        alert('invalid Task');
+      }
+      if (input_value === task_title.innerHTML) {
+        alert('nothing changed');
+      }
+      else {
+        updateTask(id, input_value)
+      }
+    })
   }
-  const updateTask = (id) => {
-    // console.log(id + "update");
-    /**
-     * @todo Complete this function.
-     * @todo 1. Send the request to update the task to the backend server.
-     * @todo 2. Update the task in the dom.
-     */
+
+  const updateTask = (id, input_value) => {
+    axios({
+      url: API_URL + 'todo/' + id + "/",
+      method: 'put',
+      headers: {
+        authorization: 'token ' + localStorage.getItem('token')
+      },
+      data: {
+        title: input_value
+      }
+    }).then(() => {
+      const input = document.getElementById('input-button-' + id);
+      const done_div = document.getElementById('done-button-' + id);
+      const task_title = document.getElementById('task-' + id);
+      const task_action = document.getElementById('task-actions-' + id);
+      input.value = '';
+      input.classList.add('hideme');
+      done_div.classList.add('hideme');
+      task_title.classList.remove('hideme');
+      task_action.classList.remove('hideme');
+      task_title.innerHTML = input_value;
+      alert('task updated successfully')
+    }
+    ).catch((err) => {
+      alert('something wrong!,do it again')
+      console.log(err);
+    }
+    )
   };
 
 
   return (
     <>
       <li className="border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2">
-        <input
+        {/* <input
           id="input-button-1"
           type="text"
           className="hideme appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input"
@@ -76,7 +106,7 @@ export default function TodoListItem(ids, targets) {
           <button
             className="bg-transparent hover:bg-gray-500 text-gray-700 text-sm  hover:text-white py-2 px-3 border border-gray-500 hover:border-transparent rounded todo-update-task"
             type="button"
-            onClick={updateTask(1)}
+          // onClick={updateTask(1)}
           >
             Done
           </button>
@@ -93,7 +123,7 @@ export default function TodoListItem(ids, targets) {
           <button
             style={{ marginRight: "5px" }}
             type="button"
-            onClick={editTask(1)}
+            // onClick={editTask(1)}
             className="bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 py-2"
           >
             <img
@@ -115,7 +145,7 @@ export default function TodoListItem(ids, targets) {
               alt="Delete"
             />
           </button>
-        </span>
+        </span> */}
       </li>
     </>
   );

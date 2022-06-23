@@ -1,10 +1,8 @@
 import TodoListItem from '../components/TodoListItem'
 import { useEffect, useState } from 'react'
 import axios from '../utils/axios'
-import EditTask from '../components/TodoListItem';
 import AddTask from '../components/AddTask'
-import deleteTask from '../components/TodoListItem';
-import UpdateTask from '../components/TodoListItem';
+
 
 
 export default function Home() {
@@ -46,11 +44,9 @@ export default function Home() {
         div.className = 'hideme';
 
         const button = document.createElement('button');
+        button.id = 'done' + task.id;
         button.className = 'bg-transparent hover:bg-gray-500 text-gray-700 text-sm  hover:text-white py-2 px-3 border border-gray-500 hover:border-transparent rounded todo-update-task';
         button.type = 'button';
-        button.onclick = () => {
-          TodoListItem(task.id, 'update')
-        }
         button.innerHTML = 'Done';
 
         div.appendChild(button);
