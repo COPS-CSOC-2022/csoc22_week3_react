@@ -1,32 +1,86 @@
+import React from "react";
+import axios from '../utils/axios'
+import { useAuth } from '../context/auth'
+import { useRouter } from 'next/router'
+import { no_auth_required } from "../middlewares/no_auth_required";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const BASE_URL = "todo-app-csoc.herokuapp.com/" ;
+
 export default function RegisterForm() {
+  const router = useRouter();
+  const { setToken } = useAuth();
+
+  const [loginData, setLoginData] = React.useState({
+    inputUsername: "",
+    inputPassword: ""
+  })
+
+  function handleChange(event){
+    const {name, value} = event.target;
+    setLoginData(prev => {
+      return {
+        ...prev,
+        [name] : value
+      }
+    })
+  }
+
+  no_auth_required();
+
   const login = () => {
-    /***
-     * @todo Complete this function.
-     * @todo 1. Write code for form validation.
-     * @todo 2. Fetch the auth token from backend and login the user.
-     * @todo 3. Set the token in the context (See context/auth.js)
-     */
+    
+    const userData = {
+      username: loginData.inputUsername,
+      password: loginData.inputPassword
+    }
+
+    axios({
+        url: "auth/login/",
+        method: 'POST',
+        data: userData,
+    }).then(res => {
+        toast.success("Successfully Logged In!!");
+        const authToken = res.data.token;
+        setToken(authToken)
+        router.push('/error', '/');            
+        console.log("successfully logged in");
+        
+    }).catch(function (err) {
+        // console.log(err);
+        toast.error("Invalid Username Or Password!!!");
+        setLoginData({
+          inputUsername: "",
+          inputPassword: ""
+        })
+    })
   }
 
   return (
+    <>
     <div className='bg-grey-lighter min-h-screen flex flex-col'>
       <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
         <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
           <h1 className='mb-8 text-3xl text-center'>Login</h1>
           <input
+            onChange={handleChange}
             type='text'
             className='block border border-grey-light w-full p-3 rounded mb-4'
             name='inputUsername'
             id='inputUsername'
             placeholder='Username'
+            value={loginData.inputUsername}
           />
 
           <input
+            onChange={handleChange}
             type='password'
             className='block border border-grey-light w-full p-3 rounded mb-4'
             name='inputPassword'
             id='inputPassword'
             placeholder='Password'
+            value={loginData.inputPassword}
           />
 
           <button
@@ -39,5 +93,18 @@ export default function RegisterForm() {
         </div>
       </div>
     </div>
+    <ToastContainer
+      position="bottom-right"
+      theme="dark"
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+       />
+       </>
   )
 }
