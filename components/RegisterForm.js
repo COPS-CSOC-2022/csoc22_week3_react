@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register() {
   const { setToken } = useAuth()
@@ -27,11 +29,12 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
+      toast.error('Please fill all the fields correctly.')
       return false
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log('Please enter a valid email address.')
+      toast.error('Please enter a valid email address.')
+      setEmail("");
       return false
     }
     return true
@@ -43,7 +46,7 @@ export default function Register() {
     if (
       registerFieldsAreValid(firstName, lastName, email, username, password)
     ) {
-      console.log('Please wait...')
+      // toast.info('Please wait...')
 
       const dataForApiRequest = {
         name: firstName + ' ' + lastName,
@@ -58,17 +61,23 @@ export default function Register() {
       )
         .then(function ({ data, status }) {
           setToken(data.token)
-          router.push('/')
+          router.push('/error','/')
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
+          toast.error(
+            'Account Already Exists'
           )
+          setFirstName("");
+          setLastName("");
+          setUsername("");
+          setEmail("");
+          setPassword("");
         })
     }
   }
 
   return (
+    <>
     <div className='bg-grey-lighter min-h-screen flex flex-col'>
       <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
         <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
@@ -132,5 +141,18 @@ export default function Register() {
         </div>
       </div>
     </div>
+    <ToastContainer
+      position="bottom-right"
+      theme="dark"
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+       />
+       </>
   )
 }
