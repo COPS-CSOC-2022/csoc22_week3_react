@@ -11,7 +11,7 @@ export default function Nav() {
   const { logout, profileName, avatarImage } = useAuth()
 
   return (
-    <nav className='bg-blue-600'>
+    <nav className=''>
       <ul className='flex items-center justify-between p-5'>
         <ul className='flex items-center justify-between space-x-4'>
           <li>
@@ -22,11 +22,11 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
-        <ul className='flex'>
-          <li className='text-white mr-2'>
+        <ul className='flex w-1/6 justify-between'>
+          <li className='text-white mr-2 px-4 py-2 rounded-lg  hover:bg-slate-600'>
             <Link href='/login'>Login</Link>
           </li>
-          <li className='text-white'>
+          <li className='text-white mr-2 px-4 py-2  rounded-lg hover:bg-gray-500'>
             <Link href='/register'>Register</Link>
           </li>
         </ul>

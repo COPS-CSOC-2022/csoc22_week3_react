@@ -26,7 +26,7 @@ export default function TodoListItem() {
 
   return (
     <>
-      <li className='border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2'>
+      <li className='todo-row border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2'>
         <input
           id='input-button-1'
           type='text'
@@ -42,7 +42,7 @@ export default function TodoListItem() {
             Done
           </button>
         </div>
-        <div id='task-1' className='todo-task  text-gray-600'>
+        <div id='task-1' className='todo-task'>
           Sample Task 1
         </div>
         <span id='task-actions-1' className=''>

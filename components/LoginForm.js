@@ -1,5 +1,9 @@
+import Link from "next/link";
+import Btn from "./Btn"
+
 export default function RegisterForm() {
   const login = () => {
+    console.log("Yes");
     /***
      * @todo Complete this function.
      * @todo 1. Write code for form validation.
@@ -9,35 +13,34 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className='bg-grey-lighter min-h-screen flex flex-col'>
-      <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
-        <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
-          <h1 className='mb-8 text-3xl text-center'>Login</h1>
+    // <div className='bg-grey-lighter min-h-screen flex flex-col'>
+      <div className='container max-w-lg mx-auto flex flex-col px-2'>
+        <div className='px-6 py-8 rounded flex flex-col text-white w-full'>
+          <h1 className='mb-8 text-6xl float-left font-semibold'>Login<span style={{
+            color:"rgb(0, 180, 216)"
+          }}>.</span></h1>
+<h4 className="mb-3 font-bold">New User? <span style={{
+            color:"rgb(0, 180, 216)"
+          }}><Link href="/register">Create Account</Link></span></h4>
           <input
             type='text'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='px-8 py-4 mb-4 rounded-lg text-md w-full'
             name='inputUsername'
             id='inputUsername'
             placeholder='Username'
           />
-
           <input
             type='password'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='px-8 py-4 rounded-lg text-md w-full'
             name='inputPassword'
             id='inputPassword'
             placeholder='Password'
           />
-
-          <button
-            type='submit'
-            className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1'
-            onClick={login}
-          >
-            Login
-          </button>
+<div className="w-full mt-0" onClick={login}>
+  <Btn data="Login" func="login" />
+</div>
         </div>
       </div>
-    </div>
+    // </div>
   )
 }

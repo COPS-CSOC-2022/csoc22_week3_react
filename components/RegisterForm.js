@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import Btn from './Btn'
+import Link from 'next/link'
 
 export default function Register() {
   const { setToken } = useAuth()
@@ -69,13 +71,17 @@ export default function Register() {
   }
 
   return (
-    <div className='bg-grey-lighter min-h-screen flex flex-col'>
-      <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
-        <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
-          <h1 className='mb-8 text-3xl text-center'>Register</h1>
+      <div className='container max-w-lg mx-auto flex flex-col px-2'>
+        <div className='px-6 py-8 rounded flex flex-col text-white w-full registerForm'>
+          <h1 className='mb-8 text-6xl float-left font-semibold'>Register<span style={{
+            color:"rgb(0, 180, 216)"
+          }}>.</span></h1>
+          <h4 className="mb-3 font-bold">Already Have an account? <span style={{
+            color:"rgb(0, 180, 216)"
+          }}><Link href="/login">Log In</Link></span></h4>
           <input
             type='text'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='px-8 py-4 mb-4 rounded-lg text-md w-full'
             name='inputFirstName'
             id='inputFirstName'
             value={firstName}
@@ -84,7 +90,7 @@ export default function Register() {
           />
           <input
             type='text'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='px-8 py-4 mb-4 rounded-lg text-md w-full'
             name='inputLastName'
             id='inputLastName'
             value={lastName}
@@ -94,7 +100,7 @@ export default function Register() {
 
           <input
             type='email'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='px-8 py-4 mb-4 rounded-lg text-md w-full'
             name='inputEmail'
             id='inputEmail'
             value={email}
@@ -104,7 +110,7 @@ export default function Register() {
 
           <input
             type='text'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='px-8 py-4 mb-4 rounded-lg text-md w-full'
             name='inputUsername'
             id='inputUsername'
             value={username}
@@ -114,23 +120,17 @@ export default function Register() {
 
           <input
             type='password'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='px-8 py-4 mb-4 rounded-lg text-md w-full'
             name='inputPassword'
             id='inputPassword'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder='Password'
           />
-
-          <button
-            type='submit'
-            className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1'
-            onClick={register}
-          >
-            Register
-          </button>
+        <div className="w-full" onClick={register}>
+        <Btn data="Register" />
+        </div>
         </div>
       </div>
-    </div>
   )
 }

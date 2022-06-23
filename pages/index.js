@@ -21,10 +21,23 @@ export default function Home() {
       <center>
         <AddTask />
         <ul className='flex-col mt-9 max-w-sm mb-3 '>
-          <span className='inline-block bg-blue-600 py-1 mb-2 px-9 text-sm text-white font-bold rounded-full '>
+          <span className='inline-block bg-blue-600 py-1 px-9 text-sm text-white font-bold rounded-full mb-10'>
             Available Tasks
           </span>
+          <div className="todoTasks max-h-80">
           <TodoListItem />
+          <TodoListItem />
+          <TodoListItem />
+          <TodoListItem />
+          <TodoListItem />
+          <TodoListItem />
+          <TodoListItem />
+          <TodoListItem />
+          <TodoListItem />
+          <TodoListItem />
+          <TodoListItem />
+          <TodoListItem />
+          </div>
         </ul>
       </center>
     </div>
