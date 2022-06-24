@@ -48,7 +48,7 @@ export default function Home() {
           <span className='inline-block bg-blue-600 dark:bg-green-800  py-1 mb-2 px-9 text-sm text-white font-bold rounded-full '>
             Available Tasks
           </span>
-          {!tasks.length?<h1 className='text-gray-600 py-2'>No Todos</h1>:
+          {!tasks.length?<h1 className='dark:text-white text-gray-600 py-2'>No Todos</h1>:
            jsx} 
         </ul>
       </center>
