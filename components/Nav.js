@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { useAuth } from '../context/auth'
 import { useState } from 'react'
-import AddTask from './AddTask'
+
 
 /**
  *
@@ -14,7 +14,6 @@ export default function Nav() {
   const { logout, profileName, avatarImage, token, theme, setTheme } = useAuth()
   const [mounted,setMounted] = useState(true)
   
-  const [button,setButton] = useState('Dark')
   useEffect(()=>{(token)?setMounted(true):setMounted(false)},[])
   useEffect(()=>{(token)?setMounted(true):setMounted(false)},[token])
 
@@ -30,8 +29,7 @@ export default function Nav() {
               </a>
             </Link>
             <button className='inline-block px-6 py-2.5 bg-green-600 text-white font-medium text-xs leading-tight dark:bg-red-500 uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
-            onClick={() => {setTheme(theme === 'dark' ? 'light' : 'dark'),
-                setButton(button==='Dark' ? 'Light' : 'Dark')}} >{button} Mode </button>
+            onClick={() => {setTheme(theme === 'dark' ? 'light' : 'dark')}} >Change Theme </button>
           </li>
           </ul>
          { !mounted &&
