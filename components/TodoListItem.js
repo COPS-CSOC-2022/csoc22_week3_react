@@ -24,9 +24,8 @@ export default function TodoListItem(ids, targets) {
       headers: {
         authorization: 'token ' + localStorage.getItem('token')
       }
-    }).then((res) => {
+    }).then(() => {
       the_task.remove();
-      console.log(res);
       alert('task removed successfully')
     }).catch((err) => {
       alert('something wrong!,do it again')

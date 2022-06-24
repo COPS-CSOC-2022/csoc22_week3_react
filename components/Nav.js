@@ -7,6 +7,8 @@ import { useAuth } from "../context/auth";
  * @todo Condtionally render login/register and Profile name in NavBar
  */
 
+// render image avatar and name
+
 export default function Nav() {
   const { logout, profileName, avatarImage } = useAuth();
 

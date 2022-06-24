@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }) => {
           setProfileName(response.data.name);
         })
         .catch((error) => {
+          console.log(error);
           console.log("Some error occurred");
         });
     }

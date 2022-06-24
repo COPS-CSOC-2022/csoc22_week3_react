@@ -59,6 +59,7 @@ export default function Register() {
           router.push("/login/");
         })
         .catch(function (err) {
+          console.log(err);
           alert(
             "An account using same email or username is already created"
           );

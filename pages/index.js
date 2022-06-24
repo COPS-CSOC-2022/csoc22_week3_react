@@ -8,6 +8,7 @@ import AddTask from '../components/AddTask'
 export default function Home() {
   const [Tasks, setTasks] = useState([]);
 
+
   function getTasks() {
     while (Tasks.length > 0) {
       Tasks.pop();
@@ -19,16 +20,13 @@ export default function Home() {
         Authorization: 'token ' + localStorage.getItem('token')
       }
     }).then(res => {
-      console.log(typeof (Tasks));
       res.data.forEach(Data => {
         Tasks.push(Data)
       });
-      console.log(Tasks);
       setTasks(Tasks);
       const TodoList = document.getElementById('TodoList');
       TodoList.innerHTML = '';
       Tasks.forEach(task => {
-        console.log(task);
         const li = document.createElement('li');
         li.className = 'border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2';
         li.id = task.id;
