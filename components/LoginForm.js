@@ -1,9 +1,36 @@
+import axios from "axios";
 import Link from "next/link";
+import router from "next/router";
+import React,{ useRef } from "react";
+import { useAuth } from "../context/auth";
 import Btn from "./Btn"
 
 export default function RegisterForm() {
-  const login = () => {
-    console.log("Yes");
+  const userRef = useRef('')
+  const passRef = useRef('')
+  const {setToken,setToken1} = useAuth()
+
+  const login = (e) => {
+    e.preventDefault()
+    // console.log("Yes");
+    console.log(userRef.current.value);
+    console.log(passRef.current.value);
+    if(userRef.current.value != "" && passRef.current.value !=""){
+      axios.post('https://todo-app-csoc.herokuapp.com/auth/login/',{
+        username:userRef.current.value,
+        password:passRef.current.value
+      }).then(({data})=>{
+        console.log(data.token);
+        setToken(data.token)
+        setToken1(data.token)
+        alert("Logged in with username "+userRef.current.value)
+        router.push('/')
+      }).catch((e)=>{
+        console.log(e);
+        alert("No")
+      })
+
+    }
     /***
      * @todo Complete this function.
      * @todo 1. Write code for form validation.
@@ -28,6 +55,7 @@ export default function RegisterForm() {
             name='inputUsername'
             id='inputUsername'
             placeholder='Username'
+            ref={userRef}
           />
           <input
             type='password'
@@ -35,6 +63,7 @@ export default function RegisterForm() {
             name='inputPassword'
             id='inputPassword'
             placeholder='Password'
+            ref={passRef}
           />
 <div className="w-full mt-0" onClick={login}>
   <Btn data="Login" func="login" />

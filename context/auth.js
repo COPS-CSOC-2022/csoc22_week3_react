@@ -10,21 +10,29 @@ export const AuthProvider = ({ children }) => {
   const [profileName, setProfileName] = useState('')
   const [avatarImage, setAvatarImage] = useState('#')
   const [cookies, setCookies, removeCookies] = useCookies(['auth'])
-  const token = cookies.token
-
-  const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
-  const deleteToken = () => removeCookies('token')
-  const logout = () => {
-    deleteToken()
+  // const token = cookies.token
+  const [token1, setToken1] = useState(cookies.token)
+  console.log(token1);
+  const setToken =(newToken) => {setCookies('token', newToken, { path: '/' })}
+  const deleteToken = () => {
+    removeCookies('token')
+  }
+   const logout = async() => {
+    setProfileName('')
+    setAvatarImage('#')
+     setToken1(null)
+     deleteToken()
     router.push('/login')
   }
-
+  console.log(cookies);
+  const [flag, setFlag] = useState(false)
+  
   useEffect(() => {
-    if (token) {
+    if (token1) {
       axios
         .get('auth/profile/', {
           headers: {
-            Authorization: 'Token ' + token,
+            Authorization: 'Token ' + token1,
           },
         })
         .then((response) => {
@@ -39,12 +47,13 @@ export const AuthProvider = ({ children }) => {
           console.log('Some error occurred')
         })
     }
-  }, [setAvatarImage, setProfileName, token])
+  }, [setAvatarImage, setProfileName, token1]
+  )
 
   return (
     <AuthContext.Provider
       value={{
-        token,
+        token1,
         setToken,
         deleteToken,
         profileName,
@@ -52,6 +61,8 @@ export const AuthProvider = ({ children }) => {
         avatarImage,
         setAvatarImage,
         logout,
+        setToken1,
+        flag,setFlag
       }}
     >
       {children}

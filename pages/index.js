@@ -3,19 +3,38 @@ import AddTask from '../components/AddTask'
 import { useEffect, useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
+import React from 'react'
 
-export default function Home() {
-  const { token } = useAuth()
+function Home() {
+  const { token1 ,flag } = useAuth()
   const [tasks, setTasks] = useState([])
 
-  function getTasks() {
+ async function getTasks() {
+       try {
+        const data =await axios.get("https://todo-app-csoc.herokuapp.com/todo/"
+        ,{
+          headers:{
+          Authorization: 'Token ' + token1,
+          }
+        }
+        )
+        console.log(data.data);
+        setTasks(data.data)
+        console.log(tasks);
+       } catch (error) {
+        console.log(error);
+       }
     /***
      * @todo Fetch the tasks created by the user.
      * @todo Set the tasks state and display them in the using TodoListItem component
      * The user token can be accessed from the context using useAuth() from /context/auth.js
      */
   }
-
+  console.log(tasks);
+  // getTasks()
+   useEffect(() => {
+    getTasks()
+  },[flag])
   return (
     <div>
       <center>
@@ -25,21 +44,16 @@ export default function Home() {
             Available Tasks
           </span>
           <div className="todoTasks max-h-80">
-          <TodoListItem />
-          <TodoListItem />
-          <TodoListItem />
-          <TodoListItem />
-          <TodoListItem />
-          <TodoListItem />
-          <TodoListItem />
-          <TodoListItem />
-          <TodoListItem />
-          <TodoListItem />
-          <TodoListItem />
-          <TodoListItem />
+            {
+              Array.from(tasks).map((e)=>{
+                return <TodoListItem key={e.id} title={e.title} id={e.id} />
+              })
+            }
           </div>
         </ul>
       </center>
     </div>
   )
 }
+
+export default Home
