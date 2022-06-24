@@ -26,8 +26,8 @@ export default function TodoListItem() {
 
   return (
     <>
-      <li className='border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2'>
-        <input
+       <li className='border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2'>
+        {/* <input
           id='input-button-1'
           type='text'
           className='hideme appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input'
@@ -71,8 +71,8 @@ export default function TodoListItem() {
               alt='Delete'
             />
           </button>
-        </span>
-      </li>
+        </span> */}
+      </li> 
     </>
   )
 }

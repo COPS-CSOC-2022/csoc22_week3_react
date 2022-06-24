@@ -1,4 +1,10 @@
+import React, { useState } from 'react'
+import axios from '../utils/axios'
+
 export default function RegisterForm() {
+
+  const [password, setPassword] = useState('')
+    const [username, setUsername] = useState('')
   const login = () => {
     /***
      * @todo Complete this function.
@@ -6,6 +12,24 @@ export default function RegisterForm() {
      * @todo 2. Fetch the auth token from backend and login the user.
      * @todo 3. Set the token in the context (See context/auth.js)
      */
+
+     
+
+    const dataForApiRequest = {
+      username: username,
+      password: password,
+    }
+    axios.post(
+      'auth/login/',
+      dataForApiRequest,
+    ).then(function ({ data, status }) {
+      localStorage.setItem('token', data.token);
+      window.location.href = '/';
+    }).catch(function (err) {
+      alert('Account does not exist, please register first');
+    })
+
+  
   }
 
   return (
@@ -19,6 +43,8 @@ export default function RegisterForm() {
             name='inputUsername'
             id='inputUsername'
             placeholder='Username'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
 
           <input
@@ -27,6 +53,8 @@ export default function RegisterForm() {
             name='inputPassword'
             id='inputPassword'
             placeholder='Password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <button
