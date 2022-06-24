@@ -62,7 +62,8 @@ export const AuthProvider = ({ children }) => {
         setAvatarImage,
         logout,
         setToken1,
-        flag,setFlag
+        flag,
+        setFlag
       }}
     >
       {children}

@@ -4,12 +4,15 @@ import { useEffect, useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import React from 'react'
+import { auth_required } from '../middlewares/auth_required'
+import { no_auth_required } from '../middlewares/no_auth_required'
 
 function Home() {
   const { token1 ,flag } = useAuth()
   const [tasks, setTasks] = useState([])
 
  async function getTasks() {
+  if(token1){
        try {
         const data =await axios.get("https://todo-app-csoc.herokuapp.com/todo/"
         ,{
@@ -31,8 +34,10 @@ function Home() {
      */
   }
   console.log(tasks);
-  // getTasks()
+}
    useEffect(() => {
+    auth_required(token1)
+    no_auth_required(token1)
     getTasks()
   },[flag])
   return (

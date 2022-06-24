@@ -4,7 +4,8 @@ import { useAuth } from "../context/auth";
 /***
  * @todo Redirect the user to main page if token is present.
  */
-const {token1} = useAuth()
-if(token1){
-    router.push('/')
+export const no_auth_required=(token)=>{
+if(token){
+    router.push("/")
+}
 }
