@@ -22,3 +22,121 @@
 .todo-task {
   max-width: 260px;
 }
+body {
+  background-color: #eeeded;
+ 
+}
+.box {
+  margin-top: 30px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50px;
+
+  background: linear-gradient(225deg, #d6d5d5, #fffefe);
+  box-shadow: -9px 9px 18px #d4d3d3, 9px -9px 18px #ffffff;
+  padding: 60px 100px;
+}
+.input-container {
+  position: relative;
+  margin-bottom: 25px;
+}
+.input-container label {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 16px;
+  color: grey;
+  pointer-event: none;
+  transition: all 0.5s ease-in-out;
+}
+.input-container input {
+  border: 0;
+  border-bottom: 1px solid #555;
+  background: transparent;
+  width: 100%;
+  padding: 8px 0 5px 0;
+  font-size: 16px;
+  color: black;
+}
+.input-container input:focus {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid  #a8b52f;
+}
+
+.btn {
+  color:black;
+  border-radius: 58px;
+  background: linear-gradient(225deg,#cada3a,#e4f53f);
+  box-shadow: -2px 2px 5px #a8b52f;
+
+  padding: 8px 20px;
+
+  margin-top: 50px;
+  border-radius: 7px;
+  cursor: pointer;
+  position: relative;
+}
+
+.input-container input:focus ~ label,
+.input-container input:valid ~ label {
+  top: -12px;
+  font-size: 12px;
+}
+.login {
+  color:black;
+  border-radius: 58px;
+  background: linear-gradient(225deg,#cada3a,#e4f53f);
+  box-shadow: -2px 2px 5px #a8b52f;
+
+  padding: 8px 20px;
+
+  margin-top: 50px;
+  border-radius: 7px;
+  cursor: pointer;
+  position: relative;
+}
+
+.navbar {
+  background:  #565f63;
+}
+
+.loginHome {
+  background: linear-gradient(225deg,#495154,#636d72);
+  margin-right: 15px;
+  border-radius: 58px;
+
+  background: #565f63;
+  box-shadow: -10px 10px 20px  #495154, 10px -10px 20px #636d72;
+  padding: 8px 20px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  position: relative;
+}
+.loginHome1 {
+  background: linear-gradient(225deg,#495154,#636d72);
+  margin-right: 15px;
+  border-radius: 58px;
+
+  background: #565f63;
+  box-shadow: -10px 10px 20px  #495154, 10px -10px 20px #636d72;
+  padding: 8px 20px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  position: relative
+}
+@media screen and (max-width: 760px) {
+  .box{
+    margin-top: 250px;
+  }
+  .boxTasks{
+    margin-left: -160px;
+   
+  }
+}
