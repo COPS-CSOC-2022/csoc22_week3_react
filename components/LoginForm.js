@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import axios from "../utils/axios";
 import { useRouter } from "next/router";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function RegisterForm() {
   const router = useRouter();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const login = () => {
+    toast("Logging in...")
     axios
       .post("auth/login/", {
         username: username,
@@ -21,12 +25,23 @@ export default function RegisterForm() {
       })
       .catch(function (error) {
         console.log(error);
-        alert("Invalid username or password");
+        toast.error("Invalid username or password");
       });
   };
 
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col">
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
           <h1 className="mb-8 text-3xl text-center">Login</h1>

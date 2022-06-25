@@ -1,6 +1,8 @@
 import TodoListItem from '../components/TodoListItem'
 import React, { useState } from "react";
 import axios from "../utils/axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function load_task(last_tasks) {
   const TodoList = document.getElementById('TodoList');
@@ -91,9 +93,10 @@ export default function AddTask() {
       title: Task
     }
     if (Task == "" || Task == null) {
-      alert("invalid Task");
+      toast.error("invalid Task");
       return;
     }
+    toast.info("Adding Task");
     axios({
       url: 'todo/create/',
       method: 'post',
@@ -103,7 +106,7 @@ export default function AddTask() {
       }
     }).then(function () {
       setTask("");
-
+      toast.success("Successfully added task");
       temporary_get_Task();
 
     }
@@ -116,6 +119,17 @@ export default function AddTask() {
 
   return (
     <div className="flex items-center max-w-sm mt-24">
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <input
         type="text"
         className="todo-add-task-input px-4 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full"

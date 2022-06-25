@@ -4,6 +4,8 @@ import axios from "axios";
 import React from "react";
 import { API_URL } from "../utils/constants"
 import { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function TodoListItem(ids, targets) {
 
@@ -16,6 +18,7 @@ export default function TodoListItem(ids, targets) {
   }
 
   function deleteTask(id) {
+    toast.info("Deleting Task...");
     const the_task = document.getElementById(id)
 
     axios({
@@ -26,9 +29,9 @@ export default function TodoListItem(ids, targets) {
       }
     }).then(() => {
       the_task.remove();
-      alert('task removed successfully')
+      toast.success("Task Deleted");
     }).catch((err) => {
-      alert('something wrong!,do it again')
+      toast.error("Task Not Deleted,something went wrong");
       console.log(err);
     })
   }
@@ -50,10 +53,12 @@ export default function TodoListItem(ids, targets) {
     done.addEventListener('click', () => {
       const input_value = input.value;
       if (input_value === '') {
-        alert('invalid Task');
+        toast.error('invalid Task');
+        return;
       }
       if (input_value === task_title.innerHTML) {
-        alert('nothing changed');
+        toast.error('nothing changed');
+        return
       }
       else {
         updateTask(id, input_value)
@@ -62,6 +67,7 @@ export default function TodoListItem(ids, targets) {
   }
 
   const updateTask = (id, input_value) => {
+    toast.info('Updating Task');
     axios({
       url: API_URL + 'todo/' + id + "/",
       method: 'put',
@@ -82,10 +88,10 @@ export default function TodoListItem(ids, targets) {
       task_title.classList.remove('hideme');
       task_action.classList.remove('hideme');
       task_title.innerHTML = input_value;
-      alert('task updated successfully')
+      toast.success('task updated successfully')
     }
     ).catch((err) => {
-      alert('something wrong!,do it again')
+      toast.error('something wrong!,do it again')
       console.log(err);
     }
     )

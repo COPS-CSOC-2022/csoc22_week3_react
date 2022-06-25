@@ -2,14 +2,37 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { useAuth } from "../context/auth";
+import { useEffect } from 'react'
 /**
  *
  * @todo Condtionally render login/register and Profile name in NavBar
  */
 
-// render image avatar and name
+
+
+
+
+// get location of current page
+const getLocation = () => {
+  const location = window.location.pathname;
+  console.log(location);
+  if (location === "/") {
+
+    return "none";
+  } else if (location === "/login") {
+    return "block";
+  }
+  else if (location === "/register") {
+    return "block";
+  }
+}
+
+
+
+
 
 export default function Nav() {
+  useEffect(() => { getLocation() }, []);
   const { logout, profileName, avatarImage } = useAuth();
 
   return (

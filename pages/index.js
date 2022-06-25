@@ -2,14 +2,18 @@ import TodoListItem from '../components/TodoListItem'
 import { useEffect, useState } from 'react'
 import axios from '../utils/axios'
 import AddTask from '../components/AddTask'
-
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import is token present from auth_required.js
+import isTokenPresent from '../middlewares/auth_required';
 
 export default function Home() {
   const [Tasks, setTasks] = useState([]);
 
 
   function getTasks() {
+    toast.success('successfully logged in');
+    toast.info('loading tasks...');
     while (Tasks.length > 0) {
       Tasks.pop();
     }
@@ -88,11 +92,14 @@ export default function Home() {
         li.appendChild(taskActions);
         TodoList.appendChild(li);
       });
+      toast.success('Tasks Loaded Successfully');
     }
     ).catch(err => {
+      toast.error('An error occured');
       console.log(err)
     })
   }
+  useEffect(() => { isTokenPresent() }, []);
   useEffect(() => { getTasks() }, []);
   return (
     <div>
