@@ -35,9 +35,10 @@ export default function TodoListItem(selection, aim) {
       },
   }).then(function ({ data, status }) {
     const task = document.getElementById(id);
-
       task.remove();
-      console.log(123);
+      console.log('del');
+      // getTasks()
+      console.log(data);
 
   }).catch(function (err) {
       alert('An error occured while deleting the task');
