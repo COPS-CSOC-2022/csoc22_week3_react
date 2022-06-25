@@ -5,20 +5,79 @@
 .hideme {
   display: none !important;
 }
+::-webkit-scrollbar{
+  width: 1rem;
+}
+::-webkit-scrollbar-track{
+  background: #2b2b2b;
+}
+::-webkit-scrollbar-thumb{
+  background: #1e1d1d;
+  height: 5px;
+}
 
+body{
+  height: 100%;
+  background: #e8fded;
+}
+.navbar{
+  background-color: #120099;
+  box-shadow:0 3px 3px 3px #00d5f2;
+}
+input{
+  color:rgba(0, 0, 0, 0.934);
+  background:rgb(193, 251, 255);
+  border:2px solid darkblue;
+}
+.heading{
+  text-align: center;
+  color: #ffffff;
+  font-family: Times New Roman,Times,serif;
+  text-style: oblique;
+  font-size: 50px;
+  marrgin-bottom:3vh;
+}
+.container{
+  border-radius: 20px;
+  border: 3px solid #670067;
+  background: linear-gradient(#2856b5,#ddfaff);
+  margin-top: 5vh;
+}
 .todo-edit-task-input,
 .todo-add-task-input {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  max-width: 300px;
+  color:rgba(0, 0, 0, 0.934);
+  background:rgb(193, 251, 255);
+  border:2px solid darkblue;
 }
 
 .todo-update-task,
 .todo-add-task {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
+  background:rgb(0, 204, 163);
+}
+.todo-add-task:hover{
+  background: #767af5;
 }
 
-.todo-task {
-  max-width: 260px;
+.todo-row{
+  color: #fff;
+  background: linear-gradient(90deg,#0f148d,#68cab5)
+}
+.todo-row:nth-child(2n + 1) {
+  background: linear-gradient(
+    90deg,
+    #220066,#6802a6
+  );
+}
+.todoTasks{
+  overflow-y: scroll;
+}
+.todoTasks::-webkit-scrollbar {
+  display: none;
+}
+.registerForm{
+  overflow-y: scroll;
+  max-height: 80vh;
+}
+.registerForm::-webkit-scrollbar {
+  display: none;
 }
