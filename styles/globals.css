@@ -26,7 +26,7 @@ body{
 }
 input{
   color:rgba(0, 0, 0, 0.934);
-  background:rgb(193, 251, 255);
+  background:rgb(255, 255, 255);
   border:2px solid darkblue;
 }
 .heading{
@@ -46,7 +46,7 @@ input{
 .todo-edit-task-input,
 .todo-add-task-input {
   color:rgba(0, 0, 0, 0.934);
-  background:rgb(193, 251, 255);
+  background:rgb(255, 255, 255);
   border:2px solid darkblue;
 }
 
