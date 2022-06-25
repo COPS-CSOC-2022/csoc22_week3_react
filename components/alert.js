@@ -1,6 +1,5 @@
 import 'izitoast/dist/css/iziToast.min.css';
 
-import iziToast from 'izitoast/dist/js/iziToast.min.js';
 
 
 export function displaySuccessToast(message) {
