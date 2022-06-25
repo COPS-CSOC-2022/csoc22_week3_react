@@ -68,7 +68,7 @@ export default function Home() {
       }
 
       editbutton.className = 'bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 py-2';
-      editbutton.innerHTML = '<img src="https://res.cloudinary.com/nishantwrp/image/upload/v1587486663/CSOC/edit.png"/>';
+      editbutton.innerHTML = '<img src="https://res.cloudinary.com/nishantwrp/image/upload/v1587486663/CSOC/edit.png" width="20px" height="20px"/>';
 
 
       const deletebutton = document.createElement('button');
@@ -81,7 +81,7 @@ export default function Home() {
         TodoListItem(task.id, 'delete');
       }
 
-      deletebutton.innerHTML = '<img src="https://res.cloudinary.com/nishantwrp/image/upload/v1587486661/CSOC/delete.svg"/>';
+      deletebutton.innerHTML = '<img src="https://res.cloudinary.com/nishantwrp/image/upload/v1587486661/CSOC/delete.svg"  width="20px" height="20px"/>';
 
       taskActions.appendChild(editbutton);
       taskActions.appendChild(deletebutton);

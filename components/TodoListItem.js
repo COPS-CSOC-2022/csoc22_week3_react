@@ -1,19 +1,50 @@
 /* eslint-disable @next/next/no-img-element */
+import AddTask from '../components/AddTask'
+import { useEffect, useState } from 'react'
+import axios from '../utils/axios'
+import { useAuth } from '../context/auth'
 
-export default function TodoListItem() {
-  const editTask = (id) => {
+export default function TodoListItem(selection, aim) {
+
+  if (aim=='edit')
+  editTask(selection);
+  if(aim=='delete')
+  deleteTask(selection);
+
+
+  function editTask (id) {
     /**
      * @todo Complete this function.
      * @todo 1. Update the dom accordingly
      */
   }
+  // const { token } = useAuth()
 
-  const deleteTask = (id) => {
+ function deleteTask  (id)  {
     /**
      * @todo Complete this function.
      * @todo 1. Send the request to delete the task to the backend server.
      * @todo 2. Remove the task from the dom.
      */
+
+     axios({
+      url:   'todo/' + id + '/',
+      method: 'delete',
+      headers: {
+          'Authorization': 'Token ' +localStorage.getItem('token')
+      },
+  }).then(function ({ data, status }) {
+    const task = document.getElementById(id);
+
+      task.remove();
+      console.log(123);
+
+  }).catch(function (err) {
+      alert('An error occured while deleting the task');
+  
+  }
+  )
+
   }
 
   const updateTask = (id) => {
