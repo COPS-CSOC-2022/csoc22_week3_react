@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 
+'react-toastify';
+import {toast} from "react-toastify";
 
 export default function Register() {
   const { setToken } = useAuth()
@@ -58,12 +62,14 @@ export default function Register() {
       )
         .then(function ({ data, status }) {
           setToken(data.token)
-          router.push('/')
+          router.push('/login/');
+          toast.success('Registered successfully!');
         })
         .catch(function (err) {
           console.log(
             'An account using same email or username is already created'
           )
+          toast.error('An account using same email or username is already created');
         })
     }
   }
@@ -131,6 +137,17 @@ export default function Register() {
           </button>
         </div>
       </div>
+      <ToastContainer
+position="bottom-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
     </div>
   )
 }

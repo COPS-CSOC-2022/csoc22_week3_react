@@ -2,7 +2,10 @@ import { useEffect, useState, useContext, createContext } from 'react'
 import { useCookies } from 'react-cookie'
 import axios from '../utils/axios'
 import { useRouter } from 'next/router'
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 
+'react-toastify';
+import {toast} from "react-toastify";
 const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
@@ -16,7 +19,9 @@ export const AuthProvider = ({ children }) => {
   const deleteToken = () => removeCookies('token')
   const logout = () => {
     deleteToken()
+    localStorage.removeItem('token')
     router.push('/login')
+    toast.success('Logged-out successfully!')
   }
 
   useEffect(() => {
@@ -33,6 +38,7 @@ export const AuthProvider = ({ children }) => {
               response.data.name +
               '&background=fff&size=33&color=007bff'
           )
+          // console.log(response.data.name);
           setProfileName(response.data.name)
         })
         .catch((error) => {
@@ -42,6 +48,7 @@ export const AuthProvider = ({ children }) => {
   }, [setAvatarImage, setProfileName, token])
 
   return (
+    <>
     <AuthContext.Provider
       value={{
         token,
@@ -56,6 +63,18 @@ export const AuthProvider = ({ children }) => {
     >
       {children}
     </AuthContext.Provider>
+    <ToastContainer
+position="bottom-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
+    </>
   )
 }
 
