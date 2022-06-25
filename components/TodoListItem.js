@@ -79,7 +79,7 @@ export default function TodoListItem(props) {
             style={{ marginRight: '5px' }}
             type='button'
             onClick={()=>editTask()}
-            className={!edit ? 'bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 py-2' : 'hideme'}
+            className={!edit ? ' dark:bg-green-800 hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 py-2' : 'hideme'}
           >
             <img
               src='https://res.cloudinary.com/nishantwrp/image/upload/v1587486663/CSOC/edit.png'
@@ -90,7 +90,7 @@ export default function TodoListItem(props) {
           </button>
           <button
             type='button'
-            className={!edit ? 'bg-transparent hover:bg-red-500 hover:text-white border border-red-500 hover:border-transparent rounded px-2 py-2': 'hideme'}
+            className={!edit ? 'dark:bg-red-500 dark:hover:bg-yellow-500 hover:bg-red-500 hover:text-white border border-red-500 hover:border-transparent rounded px-2 py-2': 'hideme'}
             onClick={()=>deleteTask(props.id)}
           >
             <img
