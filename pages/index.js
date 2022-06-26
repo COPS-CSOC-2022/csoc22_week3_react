@@ -4,12 +4,10 @@ import axios from '../utils/axios'
 import AddTask from '../components/AddTask'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import is token present from auth_required.js
 import isTokenPresent from '../middlewares/auth_required';
-
 export default function Home() {
-  const [Tasks, setTasks] = useState([]);
 
+  const [Tasks, setTasks] = useState([]);
 
   function getTasks() {
     toast.success('successfully logged in');

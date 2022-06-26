@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import axios from "../utils/axios";
+import { useAuth } from "../context/auth";
 import { useRouter } from "next/router";
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function RegisterForm() {
+  const { setToken } = useAuth();
   const router = useRouter();
 
   const [username, setUsername] = useState("");
@@ -18,9 +19,9 @@ export default function RegisterForm() {
         password: password,
       })
       .then(function ({ data, status }) {
-        console.log(data);
+        console.log(data.token);
         localStorage.setItem("token", data.token);
-        console.log(status);
+        setToken(data.token);
         router.push("/");
       })
       .catch(function (error) {

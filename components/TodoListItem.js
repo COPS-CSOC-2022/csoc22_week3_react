@@ -10,6 +10,9 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function TodoListItem(ids, targets) {
 
 
+
+
+
   if (targets == 'delete') {
     deleteTask(ids)
   }

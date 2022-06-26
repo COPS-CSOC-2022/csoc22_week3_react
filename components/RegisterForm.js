@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "../utils/axios";
 import { useAuth } from "../context/auth";
 import { useRouter } from "next/router";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Register() {
   const { setToken } = useAuth();
   const router = useRouter();
@@ -43,7 +44,7 @@ export default function Register() {
     if (
       registerFieldsAreValid(firstName, lastName, email, username, password)
     ) {
-      console.log("Please wait...");
+      toast.info("Please wait...");
 
       const dataForApiRequest = {
         name: firstName + " " + lastName,
@@ -126,6 +127,18 @@ export default function Register() {
           </button>{" "}
         </div>{" "}
       </div>{" "}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
+
   );
 }
