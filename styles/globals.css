@@ -65,7 +65,7 @@ input{
 .todo-row:nth-child(2n + 1) {
   background: linear-gradient(
     90deg,
-    #220066,#6802a6
+    #220066,#d695ff
   );
 }
 .todoTasks{
