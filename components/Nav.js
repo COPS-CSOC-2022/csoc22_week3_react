@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { useAuth } from '../context/auth'
 import { displayError } from '../pages/_app';
+import Image from 'next/image'
 
 
 
@@ -46,7 +47,7 @@ export default function Nav() {
         {(token != "null" && token != undefined) && <div className='inline-block relative w-28'>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
-              <img src={avatarImage} />
+              <Image src={avatarImage} />
               <span className='mr-1'>{profileName}</span>
               <svg
                 className='fill-current h-4 w-4'

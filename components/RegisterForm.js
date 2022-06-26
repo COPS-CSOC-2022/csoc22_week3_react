@@ -141,18 +141,6 @@ export default function Register() {
           </div>
         </div>
       </div>
-      <ToastContainer
-        position="bottom-right"
-        theme="dark"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </>
   )
 }
