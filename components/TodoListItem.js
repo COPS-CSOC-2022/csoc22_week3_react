@@ -3,7 +3,8 @@ import React from "react"
 import { useRef } from "react"
 import { useState } from "react"
 import { useAuth } from "../context/auth"
-
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { RiEditBoxLine } from "react-icons/ri";
 /* eslint-disable @next/next/no-img-element */
 
 export default function TodoListItem({title,id}) {
@@ -74,20 +75,20 @@ export default function TodoListItem({title,id}) {
         <input
           id={`input-button-${id}`}
           type='text'
-          className={`${!edit?'hideme' :""} appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input`}
+          className={`${!edit?'hideme' :""} appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none todo-edit-task-input`}
           placeholder='Edit The Task'
           ref={updateRef}
         />
         <div id={'done-button-'+id} className={`${!edit?'hideme' :""}`}>
           <button
-            className='bg-transparent hover:bg-gray-500 text-gray-700 text-sm  hover:text-white py-2 px-3 border border-gray-500 hover:border-transparent rounded todo-update-task'
+            className='text-sm  hover:text-white py-2 px-3 border border-gray-500 hover:border-transparent rounded ml-2 todo-update-task'
             type='button'
             onClick={()=>updateTask(id)}
           >
             Done
           </button>
         </div>
-        <div id={'task-'+ id} className={`todo-task ${edit?'hideme':""}`}>
+        <div id={'task-'+ id} className={`todo-task px-5 ${edit?'hideme':""}`}>
           {title} 
         </div>
         <span id={'task-actions-'+id} className={`${edit?'hideme':""}`}>
@@ -95,24 +96,14 @@ export default function TodoListItem({title,id}) {
             style={{ marginRight: '5px' }}
             type='button'
             onClick={()=>editTask(id)}
-            className='bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 py-2'
+            className='bg-transparent hover:bg-custom2 hover:text-white border border-custom2 hover:border-transparent rounded px-2 py-2'
           >
-            <img
-              src='https://res.cloudinary.com/nishantwrp/image/upload/v1587486663/CSOC/edit.png'
-              width='18px'
-              height='20px'
-              alt='Edit'
-            />
+            <RiEditBoxLine/>
           </button>
-     <button className="bg-transparent hover:bg-red-500 hover:text-white border border-red-500 hover:border-transparent rounded px-2 py-2"
+     <button className="bg-transparent hover:bg-custom1 hover:text-white border border-custom1 hover:border-transparent rounded px-2 py-2"
      onClick={()=>{deleteTask(id)}}
      >
-            <img
-              src='https://res.cloudinary.com/nishantwrp/image/upload/v1587486661/CSOC/delete.svg'
-              width='18px'
-              height='22px'
-              alt='Delete'
-            />
+      <RiDeleteBin6Line/>
      </button>
             
           

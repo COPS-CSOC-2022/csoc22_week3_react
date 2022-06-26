@@ -27,7 +27,10 @@ input{
   outline: none;
   border: none;
 }
-.todo-edit-task-input,
+.todo-edit-task-input{
+  background: #4B5D67;
+  color: white;
+}
 .todo-add-task-input {
   /* border-top-right-radius: 0px;
   border-bottom-right-radius: 0px; */
@@ -42,7 +45,12 @@ input{
   outline: none;
   border: none;
 }
-.todo-update-task,
+.todo-update-task{
+  background: #FFE300;
+}
+.todo-update-task:hover{
+  filter: brightness(1.3);
+}
 .todo-add-task {
   background:rgb(207, 85, 218);
 }

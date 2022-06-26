@@ -8,7 +8,7 @@ import { useAuth } from '../context/auth'
  */
 
 export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
+  const { logout, profileName, avatarImage,token1 } = useAuth()
 
   return (
     <nav className=''>
@@ -22,14 +22,14 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
-        <ul className='flex w-1/6 justify-between'>
-          <li className='text-white mr-2 px-4 py-2 rounded-lg  hover:bg-slate-600'>
+      {!token1 &&  <ul className='flex w-1/6 justify-between'>
+          <li className='text-white mr-2 px-4 py-2 rounded-lg  hover:bg-gray-500'>
             <Link href='/login'>Login</Link>
           </li>
           <li className='text-white mr-2 px-4 py-2  rounded-lg hover:bg-gray-500'>
             <Link href='/register'>Register</Link>
           </li>
-        </ul>
+        </ul>}
         <div className='inline-block relative w-28'>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
