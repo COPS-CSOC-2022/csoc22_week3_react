@@ -37,9 +37,6 @@ export default function AddTask() {
           toast.error("Unable to add Task. Please try again ....",{position: "top-center"})
         })
     }
-    
-    
-  }
   return (
     <div className='flex items-center max-w-sm mt-24'>
     <ToastContainer />
@@ -60,5 +57,8 @@ export default function AddTask() {
         Add Task
       </button>
     </div>
-  )
-}
+  )  
+    
+  }
+  
+
