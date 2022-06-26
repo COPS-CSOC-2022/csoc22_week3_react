@@ -7,6 +7,7 @@ import {
   displayInfoToast,
   displayErrorToast,
 } from "../components/alert";
+import Script from "next/dist/client/script";
 
 export default function AddTask(props) {
   const[Task,setTask]=useState('');

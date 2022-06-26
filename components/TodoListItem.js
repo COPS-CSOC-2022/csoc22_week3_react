@@ -37,11 +37,11 @@ export default function TodoListItem(props) {
     })
     .then((res) => {
       deleteThisTask(id);
-     
+      iziToast.destroy();
       displaySuccessToast('Task deleted Successfully')
     })
     .catch(() => {
-     
+      iziToast.destroy();
       displayErrorToast('Something went wrong')
     })
 
@@ -56,6 +56,7 @@ export default function TodoListItem(props) {
      */
     if(updatedTask==='')
     {
+      iziToast.destroy();
       displayInfoToast('This field cant be blank')
       return;
     }
@@ -74,13 +75,12 @@ export default function TodoListItem(props) {
     .then((res) => {
       setEdit(false);
       setNewTask(res.data.title);
-   
+      iziToast.destroy();
       displaySuccessToast('Task updated successfully')
 
     })
     .catch(() => {
-     
-      
+      iziToast.destroy();
      displayErrorToast('Something went wrong')
     })
 

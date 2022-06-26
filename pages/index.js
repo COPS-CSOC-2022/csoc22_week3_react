@@ -9,6 +9,7 @@ import {
   displayInfoToast,
   displayErrorToast,
 } from "../components/alert";
+import Script from 'next/script';
 
 import AuthRequired  from '../middlewares/auth_required.js';
 
@@ -34,7 +35,7 @@ export default function Home() {
     })
     .then((res) => {
       setTaskList(res.data);
-      
+      iziToast.destroy();
       displaySuccessToast('Loaded all tasks successfully')
      
      
@@ -42,7 +43,7 @@ export default function Home() {
     })
     .catch(() => {
       
-      
+      iziToast.destroy();
       displayErrorToast('Something went wrong')
     });
   }
@@ -66,13 +67,12 @@ export default function Home() {
               '&background=fff&size=33&color=007bff'
           );
           setProfileName(response.data.name);
-         
+          iziToast.destroy();
           displaySuccessToast('Loading tasks')
           getTasks();
         })
         .catch((error) => {
-         
-          
+          iziToast.destroy();
          displayErrorToast('Some error occured')
         })
     }
@@ -111,7 +111,7 @@ export default function Home() {
       <center>
         <AddTask addNewTask={addTask}/>
         <ul className='flex-col mt-9 max-w-sm mb-3 '>
-          <span className='inline-block bg-gray-600 py-1 mb-2 px-9 text-sm text-white font-bold rounded-full '>
+          <span className='inline-block bg-blue-600 py-1 mb-2 px-9 text-sm text-white font-bold rounded-full '>
             Available Tasks
           </span>
           {taskList.map((task) => (
