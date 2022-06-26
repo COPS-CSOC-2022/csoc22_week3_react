@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register() {
   const { setToken } = useAuth()
@@ -27,11 +29,11 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
-      return false
-    }
-    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log('Please enter a valid email address.')
+    toast.warning('Please fill all the fields correctly.',{position:'bottom-right'});
+    return false
+  }
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      toast.warning('Please enter a valid email address.',{position:'bottom-right'});
       return false
     }
     return true
@@ -43,8 +45,7 @@ export default function Register() {
     if (
       registerFieldsAreValid(firstName, lastName, email, username, password)
     ) {
-      console.log('Please wait...')
-
+      toast.info('Please wait...',{position:'bottom-right'});
       const dataForApiRequest = {
         name: firstName + ' ' + lastName,
         email: email,
@@ -59,23 +60,21 @@ export default function Register() {
         .then(function ({ data, status }) {
           setToken(data.token)
           router.push('/')
+          toast.success('Register Succesfully',{position:'bottom-right'});
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+        toast.error('An account using same email or username is already created',{position:'bottom-right'});
         })
     }
   }
 
   return (
-    <div className='bg-grey-lighter min-h-screen flex flex-col'>
-      <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
-        <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
-          <h1 className='mb-8 text-3xl text-center'>Register</h1>
+      <div className='container max-w-lg mx-auto flex flex-col px-2'>
+        <div className='px-6 py-8 rounded flex flex-col text-black w-full registerForm'>
+          <h1 className='heading'>Register..</h1>
           <input
             type='text'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='px-8 py-4 mb-4 rounded-lg text-md w-full bg-slate-100 focus:shadow-inner'
             name='inputFirstName'
             id='inputFirstName'
             value={firstName}
@@ -84,7 +83,7 @@ export default function Register() {
           />
           <input
             type='text'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='px-8 py-4 mb-4 rounded-lg text-md w-full bg-slate-100 focus:shadow-inner'
             name='inputLastName'
             id='inputLastName'
             value={lastName}
@@ -94,7 +93,7 @@ export default function Register() {
 
           <input
             type='email'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='px-8 py-4 mb-4 rounded-lg text-md w-full bg-slate-100 focus:shadow-inner'
             name='inputEmail'
             id='inputEmail'
             value={email}
@@ -104,7 +103,7 @@ export default function Register() {
 
           <input
             type='text'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='px-8 py-4 mb-4 rounded-lg text-md w-full bg-slate-100 focus:shadow-inner'
             name='inputUsername'
             id='inputUsername'
             value={username}
@@ -114,23 +113,19 @@ export default function Register() {
 
           <input
             type='password'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='px-8 py-4 mb-4 rounded-lg text-md w-full'
             name='inputPassword'
             id='inputPassword'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder='Password'
           />
-
-          <button
-            type='submit'
-            className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1'
-            onClick={register}
-          >
-            Register
-          </button>
+        <div className="w-full" onClick={register}>
+        <button className='todo-add-task text-sm px-4 py-4 hover:border-transparent mt-9 cursor-pointer text-white rounded-lg w-full focus:outline-none'>
+          Register
+        </button>
+        </div>
         </div>
       </div>
-    </div>
   )
 }

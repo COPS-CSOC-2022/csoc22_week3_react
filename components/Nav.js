@@ -8,10 +8,10 @@ import { useAuth } from '../context/auth'
  */
 
 export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
+  const { logout, profileName, avatarImage,tok} = useAuth()
 
   return (
-    <nav className='bg-blue-600'>
+    <nav className='navbar'>
       <ul className='flex items-center justify-between p-5'>
         <ul className='flex items-center justify-between space-x-4'>
           <li>
@@ -22,19 +22,19 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
-        <ul className='flex'>
-          <li className='text-white mr-2'>
+        {tok ? "" : <ul className='flex w-1/6 justify-between'>
+          <li className='text-white mr-2 px-4 py-2 rounded-lg  hover:text-emerald-100'>
             <Link href='/login'>Login</Link>
           </li>
-          <li className='text-white'>
+          <li className='text-white mr-2 px-4 py-2  rounded-lg hover:text-emerald-100'>
             <Link href='/register'>Register</Link>
           </li>
-        </ul>
-        <div className='inline-block relative w-28'>
+        </ul>}
+        {tok ? <div className='inline-block relative w-50'>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
               <img src={avatarImage} />
-              <span className='mr-1'>{profileName}</span>
+              <span className='mr-1'>{" "+profileName}</span>
               <svg
                 className='fill-current h-4 w-4'
                 xmlns='http://www.w3.org/2000/svg'
@@ -55,7 +55,7 @@ export default function Nav() {
               </li>
             </ul>
           </div>
-        </div>
+        </div>:''}
       </ul>
     </nav>
   )
