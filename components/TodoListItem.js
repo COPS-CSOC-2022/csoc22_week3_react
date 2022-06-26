@@ -4,12 +4,17 @@ import { useEffect, useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 
-export default function TodoListItem(selection, aim) {
 
+
+export default function TodoListItem(selection, aim) {
   if (aim=='edit')
   editTask(selection);
   if(aim=='delete')
   deleteTask(selection);
+
+  // const [todoInput, setTodoInput] = useState('')
+  let todoInput = '';
+  const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
 
 
   function editTask (id) {
@@ -17,6 +22,11 @@ export default function TodoListItem(selection, aim) {
      * @todo Complete this function.
      * @todo 1. Update the dom accordingly
      */
+     document.getElementById('task-' + id).classList.add('hideme');
+     document.getElementById('task-actions-' + id).classList.add('hideme');
+     document.getElementById('input-button-' + id).classList.remove('hideme');
+     document.getElementById('done-button-' + id).classList.remove('hideme');
+
   }
   // const { token } = useAuth()
 
@@ -36,7 +46,7 @@ export default function TodoListItem(selection, aim) {
   }).then(function ({ data, status }) {
     const task = document.getElementById(id);
       task.remove();
-      console.log('del');
+      // console.log('del');
       // getTasks()
       console.log(data);
 
@@ -47,13 +57,50 @@ export default function TodoListItem(selection, aim) {
   )
 
   }
-
-  const updateTask = (id) => {
+  if (aim=='update')
+     updateTask(selection);
+  function updateTask (id) {
     /**
      * @todo Complete this function.
      * @todo 1. Send the request to update the task to the backend server.
      * @todo 2. Update the task in the dom.
      */
+     const input = document.getElementById('input-button-' + id);
+     const todoInput = input.value;
+
+    //  console.log(id);
+     const dataForApiRequest = {
+      title: todoInput,
+    }
+      // console.log(todoInput);
+     axios({
+      url:  API_BASE_URL+'todo/' + id + '/',
+      method: 'put',
+      headers: {
+          'Authorization': 'Token ' +  localStorage.getItem('token'),
+      },
+      data: dataForApiRequest,
+  }).then(function ({ data, status }) {
+      // getTasks()
+      const input = document.getElementById('input-button-' + id);
+      const done_div = document.getElementById('done-button-' + id);
+      const task_title = document.getElementById('task-' + id);
+      const task_action = document.getElementById('task-actions-' + id);
+      input.value = '';
+      input.classList.add('hideme');
+      done_div.classList.add('hideme');
+      task_title.classList.remove('hideme');
+      task_action.classList.remove('hideme');
+      task_title.innerHTML = todoInput;
+      // console.log(234);
+     
+  }).catch(function (err) {
+      alert('An error occured while updating the task');
+  }   
+
+  )
+  
+
   }
 
   return (

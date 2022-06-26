@@ -47,7 +47,9 @@ export default function Home() {
       button.className = 'bg-transparent hover:bg-gray-500 text-gray-700 text-sm  hover:text-white py-2 px-3 border border-gray-500 hover:border-transparent rounded todo-update-task';
       button.type = 'button';
       button.innerHTML = 'Done';
-
+      button.onclick =()=>{
+        TodoListItem(task.id, 'update');
+      };
       div.appendChild(button);
 
       const tasks = document.createElement('div');

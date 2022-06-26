@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from '../utils/axios'
+import TodoListItem from './TodoListItem'
 // const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
 
 export default function AddTask() {
@@ -118,7 +119,7 @@ const addTask = () => {
     }).then(function ({ data, status }) {
       // todoInput = '';
       setTodoInput('');
-      console.log(123);
+      // console.log(123);
       // location.reload();
       showAddedTask();
     }).catch(function (err) {
