@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext, createContext } from 'react'
 import axios from '../utils/axios'
 import { ToastContainer, toast } from 'react-toastify';
-import authRequired from '../middlewares/auth_required'
+import {authRequired} from '../middlewares/auth_required'
 import { useRouter } from 'next/router'
 import 'react-toastify/dist/ReactToastify.css';
 import { useCookies } from 'react-cookie'
