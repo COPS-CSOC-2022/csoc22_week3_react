@@ -35,6 +35,7 @@ export default function Home() {
           //  console.log(taskList);
       })
       .catch((err)=>{
+        toast.error('Error found!');
       });
 
 
@@ -84,7 +85,7 @@ useEffect(() => {
             
         })
         .catch((err) => {
-           toast.error('Error found!')
+          //  toast.error('Error found!')
            console.error(err);
         });
 }, []);
