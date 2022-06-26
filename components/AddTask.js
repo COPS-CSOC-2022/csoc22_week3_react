@@ -22,7 +22,8 @@ export default function AddTask() {
         },
       }
     ).then(()=>{
-      incCount(count+1)
+      incCount(count+1);
+      setNewTask('');
       toast.success('Task added successfully',{
         position:'bottom-right'
     });
@@ -37,6 +38,7 @@ export default function AddTask() {
     }}>
       <input
         type='text'
+        value={newTask}
         className='todo-add-task-input px-8 py-4 placeholder-blueGray-300 text-gray-500 rounded-lg text-sm border border-blueGray-300 focus:ring w-full'
         placeholder='Enter Task'
         onChange={(e)=>{setNewTask(e.target.value);}}
