@@ -2,10 +2,11 @@ import { useEffect, useState, useContext, createContext } from 'react'
 import { useCookies } from 'react-cookie'
 import axios from '../utils/axios'
 import { useRouter } from 'next/router'
-
+import {useTheme} from 'next-themes'
 const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
+  const {theme, setTheme} = useTheme('Light')
   const router = useRouter()
   const [profileName, setProfileName] = useState('')
   const [avatarImage, setAvatarImage] = useState('#')
@@ -16,8 +17,9 @@ export const AuthProvider = ({ children }) => {
   const deleteToken = () => removeCookies('token')
   const logout = () => {
     deleteToken()
-    router.push('/login')
+    router.reload()
   }
+
 
   useEffect(() => {
     if (token) {
@@ -52,6 +54,8 @@ export const AuthProvider = ({ children }) => {
         avatarImage,
         setAvatarImage,
         logout,
+        theme,
+        setTheme,
       }}
     >
       {children}
