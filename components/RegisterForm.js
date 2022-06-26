@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
-import no_authRequired from '../middlewares/no_auth_required'
+import noAuthRequired from '../middlewares/no_auth_required'
 import { ToastContainer, toast } from 'react-toastify';
 import { useRouter } from 'next/router'
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,7 +13,7 @@ export default function Register() {
   const router = useRouter()
 
   
-  no_authRequired();
+  noAuthRequired();
   
   
   const [firstName, setFirstName] = useState('')
