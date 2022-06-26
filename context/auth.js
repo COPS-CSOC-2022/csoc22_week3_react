@@ -7,6 +7,7 @@ import { ToastContainer } from
 'react-toastify';
 import {toast} from "react-toastify";
 const AuthContext = createContext({})
+import Nav from '../components/Nav';
 
 export const AuthProvider = ({ children }) => {
   const router = useRouter()

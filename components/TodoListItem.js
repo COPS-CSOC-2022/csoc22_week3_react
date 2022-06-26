@@ -17,10 +17,10 @@ const {token}=useAuth()
      setEdit(true);
   }
   const deleteTask = (id) => {
-    //  const notify = () => toast.success("Wow so easy!");
      axios({
       headers: {
-          Authorization: "Token " + token
+          Authorization: "Token " + 
+          localStorage.getItem('token')
       },
       url: API_URL + "todo/" + id + "/",
       method: "delete"

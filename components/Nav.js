@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { useCookies } from 'react-cookie';
 import { useAuth } from '../context/auth';
@@ -57,7 +55,7 @@ useEffect(() => {
     setNavlook(notloggedin);
     console.log('no');
   }
-},[logout,RegisterForm] );
+},[logout,RegisterForm]);
   return (
     <nav className='bg-red-700'>
       <ul className='flex items-center justify-between p-5'>
