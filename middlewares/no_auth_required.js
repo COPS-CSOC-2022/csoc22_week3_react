@@ -8,11 +8,6 @@ function isTokenPresent() {
     if (token) {
         return;
     }
-    else {
-        router.push('/login');
-    }
-
-
 }
 
 

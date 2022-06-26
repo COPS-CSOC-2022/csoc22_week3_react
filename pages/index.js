@@ -4,7 +4,8 @@ import axios from '../utils/axios'
 import AddTask from '../components/AddTask'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import isTokenPresent from '../middlewares/auth_required';
+import isTokennotPresent from '../middlewares/auth_required';
+import isTokenPresent from '../middlewares/no_auth_required';
 export default function Home() {
 
   const [Tasks, setTasks] = useState([]);
@@ -97,6 +98,7 @@ export default function Home() {
       console.log(err)
     })
   }
+  useEffect(() => { isTokennotPresent() }, []);
   useEffect(() => { isTokenPresent() }, []);
   useEffect(() => { getTasks() }, []);
   return (

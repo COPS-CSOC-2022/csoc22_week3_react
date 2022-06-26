@@ -2,13 +2,10 @@ import React from "react";
 import router from "next/router";
 
 
-function isTokenPresent() {
+function isTokennotPresent() {
 
     const token = localStorage.getItem('token');
-    if (token) {
-        return;
-    }
-    else {
+    if (!token) {
         router.push('/login');
     }
 
@@ -16,4 +13,4 @@ function isTokenPresent() {
 }
 
 
-export default isTokenPresent;
+export default isTokennotPresent;

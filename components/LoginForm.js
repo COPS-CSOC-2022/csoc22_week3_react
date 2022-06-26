@@ -4,6 +4,9 @@ import { useAuth } from "../context/auth";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import isTokennotPresent from '../middlewares/auth_required';
+import isTokenPresent from '../middlewares/no_auth_required';
+import { useEffect } from "react";
 
 export default function RegisterForm() {
   const { setToken } = useAuth();
@@ -11,6 +14,8 @@ export default function RegisterForm() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  useEffect(() => { isTokennotPresent() }, []);
+  useEffect(() => { isTokenPresent() }, []);
   const login = () => {
     toast("Logging in...")
     axios
