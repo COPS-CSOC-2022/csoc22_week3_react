@@ -52,10 +52,11 @@ input{
 
 .todo-update-task,
 .todo-add-task {
-  background:rgb(0, 204, 163);
+  background:#02ab89;
+  font-size: 18px;
 }
 .todo-add-task:hover{
-  background: #767af5;
+  background: #7c6de0;
 }
 
 .todo-row{
