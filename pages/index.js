@@ -6,10 +6,12 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import isTokennotPresent from '../middlewares/auth_required';
 import isTokenPresent from '../middlewares/no_auth_required';
+import { useAuth } from '../context/auth';
+import { API_URL } from '../utils/constants';
 export default function Home() {
 
   const [Tasks, setTasks] = useState([]);
-
+  let { setAvatarImage, setProfileName } = useAuth();
   function getTasks() {
     toast.success('successfully logged in');
     toast.info('loading tasks...');
@@ -100,7 +102,29 @@ export default function Home() {
   }
   useEffect(() => { isTokennotPresent() }, []);
   useEffect(() => { isTokenPresent() }, []);
-  useEffect(() => { getTasks() }, []);
+  useEffect(() => {
+    isTokenPresent();
+    axios
+      .get(API_URL + "auth/profile/", {
+        headers: {
+          Authorization: "Token " + localStorage.getItem("token")
+        }
+      })
+      .then((res) => {
+        setAvatarImage(
+          "https://ui-avatars.com/api/?name=" +
+          res.data.name +
+          "&background=faebd7&size=33&color=007bff"
+        );
+        setProfileName(res.data.name);
+        getTasks();
+
+      })
+      .catch((err) => {
+        toast.error('Error found!')
+        console.error(err);
+      });
+  }, []);
   return (
     <div>
       <center>
