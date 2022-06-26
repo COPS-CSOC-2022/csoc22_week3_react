@@ -10,10 +10,19 @@ export const AuthProvider = ({ children }) => {
   const [profileName, setProfileName] = useState('')
   const [avatarImage, setAvatarImage] = useState('#')
   const [cookies, setCookies, removeCookies] = useCookies(['auth'])
-  const token = cookies.token
+  const [token,setTokenState] = useState(cookies.token) ;
 
-  const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
-  const deleteToken = () => removeCookies('token')
+  const setToken = (newToken) => 
+  {
+    setCookies('token', newToken, { path: '/' })
+    setTokenState(newToken);
+  }
+
+  const deleteToken = () => {
+    removeCookies('token')
+    setTokenState(undefined);
+  }
+
   const logout = () => {
     deleteToken()
     router.push('/login')
@@ -33,7 +42,7 @@ export const AuthProvider = ({ children }) => {
               response.data.name +
               '&background=fff&size=33&color=007bff'
           )
-          setProfileName(response.data.name)
+          setProfileName(response.data.username)
         })
         .catch((error) => {
           console.log('Some error occurred')
