@@ -24,6 +24,7 @@ export default function Home() {
   ).then(function ({ data, status }) {
     setTasks(data);
 }).catch(function (err) {
+    console.log("Error")
 })
   }
   useEffect(()=>{
