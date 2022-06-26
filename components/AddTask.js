@@ -42,6 +42,7 @@ export default function AddTask() {
   }
   return (
     <div className='flex items-center max-w-sm mt-24'>
+    <ToastContainer />
       <input
         type='text'
         className='todo-add-task-input px-4 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full'
