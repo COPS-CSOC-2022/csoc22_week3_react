@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../context/auth'
 import axios from '../utils/axios'
 import { ToastContainer, toast } from 'react-toastify';
-import authRequired from '../middlewares/auth_required'
+import {authRequired} from '../middlewares/auth_required'
 
 
 export default function Home() {
