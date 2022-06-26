@@ -1,8 +1,7 @@
 
 import Link from 'next/link'
 import { useAuth } from '../context/auth'
-import { displayError } from '../pages/_app';
-import Image from 'next/image'
+import { displayError } from '../pages/_app'
 
 
 
@@ -14,9 +13,8 @@ export default function Nav() {
   const { logout, profileName, avatarImage, token } = useAuth()
 
 
-  function handleLogout()
-  {
-    logout() ;
+  function handleLogout() {
+    logout();
     displayError("Logged Out Successfully")
   }
 
@@ -41,13 +39,14 @@ export default function Nav() {
           <li className='text-white'>
             <Link href='/register'>Register</Link>
           </li>
+          
         </ul>}
 
 
-        {(token != "null" && token != undefined) && <div className='inline-block relative w-28'>
+        {token && <div className='inline-block relative w-28'>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
-              <Image src={avatarImage} />
+               <img src={avatarImage} />
               <span className='mr-1'>{profileName}</span>
               <svg
                 className='fill-current h-4 w-4'
