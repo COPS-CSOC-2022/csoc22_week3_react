@@ -1,7 +1,10 @@
 import { useEffect, useState, useContext, createContext } from 'react'
-import { useCookies } from 'react-cookie'
 import axios from '../utils/axios'
+import { ToastContainer, toast } from 'react-toastify';
+import {authRequired} from '../middlewares/auth_required'
 import { useRouter } from 'next/router'
+import 'react-toastify/dist/ReactToastify.css';
+import { useCookies } from 'react-cookie'
 
 const AuthContext = createContext({})
 
@@ -12,11 +15,13 @@ export const AuthProvider = ({ children }) => {
   const [cookies, setCookies, removeCookies] = useCookies(['auth'])
   const token = cookies.token
 
+  authRequired();
+  
   const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
   const deleteToken = () => removeCookies('token')
   const logout = () => {
     deleteToken()
-    router.push('/login')
+    router.reload()
   }
 
   useEffect(() => {
@@ -42,6 +47,8 @@ export const AuthProvider = ({ children }) => {
   }, [setAvatarImage, setProfileName, token])
 
   return (
+    <>
+    <ToastContainer />
     <AuthContext.Provider
       value={{
         token,
@@ -56,6 +63,7 @@ export const AuthProvider = ({ children }) => {
     >
       {children}
     </AuthContext.Provider>
+    </>
   )
 }
 
