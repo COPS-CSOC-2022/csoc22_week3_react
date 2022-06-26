@@ -7,80 +7,80 @@ import { useAuth } from '../context/auth'
 
 
 export default function TodoListItem(selection, aim) {
-  if (aim=='edit')
-  editTask(selection);
-  if(aim=='delete')
-  deleteTask(selection);
+  if (aim == 'edit')
+    editTask(selection);
+  if (aim == 'delete')
+    deleteTask(selection);
 
   // const [todoInput, setTodoInput] = useState('')
   let todoInput = '';
   const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
 
 
-  function editTask (id) {
+  function editTask(id) {
     /**
      * @todo Complete this function.
      * @todo 1. Update the dom accordingly
      */
-     document.getElementById('task-' + id).classList.add('hideme');
-     document.getElementById('task-actions-' + id).classList.add('hideme');
-     document.getElementById('input-button-' + id).classList.remove('hideme');
-     document.getElementById('done-button-' + id).classList.remove('hideme');
+    document.getElementById('task-' + id).classList.add('hideme');
+    document.getElementById('task-actions-' + id).classList.add('hideme');
+    document.getElementById('input-button-' + id).classList.remove('hideme');
+    document.getElementById('done-button-' + id).classList.remove('hideme');
 
   }
   // const { token } = useAuth()
 
- function deleteTask  (id)  {
+  function deleteTask(id) {
     /**
      * @todo Complete this function.
      * @todo 1. Send the request to delete the task to the backend server.
      * @todo 2. Remove the task from the dom.
      */
 
-     axios({
-      url:   'todo/' + id + '/',
+    axios({
+      url: 'todo/' + id + '/',
       method: 'delete',
       headers: {
-          'Authorization': 'Token ' +localStorage.getItem('token')
+        'Authorization': 'Token ' + localStorage.getItem('token')
       },
-  }).then(function ({ data, status }) {
-    const task = document.getElementById(id);
+    }).then(function ({ data, status }) {
+      const task = document.getElementById(id);
       task.remove();
       // console.log('del');
       // getTasks()
       console.log(data);
 
-  }).catch(function (err) {
+    }).catch(function (err) {
       alert('An error occured while deleting the task');
-  
-  }
-  )
+
+    }
+    )
 
   }
-  if (aim=='update')
-     updateTask(selection);
-  function updateTask (id) {
+  if (aim == 'update')
+    updateTask(selection);
+  function updateTask(id) {
     /**
      * @todo Complete this function.
      * @todo 1. Send the request to update the task to the backend server.
      * @todo 2. Update the task in the dom.
      */
-     const input = document.getElementById('input-button-' + id);
-     const todoInput = input.value;
+    const input = document.getElementById('input-button-' + id);
+    const todoInput = input.value;
 
     //  console.log(id);
-     const dataForApiRequest = {
+    const dataForApiRequest = {
       title: todoInput,
     }
-      // console.log(todoInput);
-     axios({
-      url:  API_BASE_URL+'todo/' + id + '/',
+    // console.log(todoInput);
+    axios({
+      url: API_BASE_URL + 'todo/' + id + '/',
       method: 'put',
       headers: {
-          'Authorization': 'Token ' +  localStorage.getItem('token'),
+        'Authorization': 'Token ' + localStorage.getItem('token'),
       },
       data: dataForApiRequest,
-  }).then(function ({ data, status }) {
+    }).then(function ({ data, status }) {
       // getTasks()
       const input = document.getElementById('input-button-' + id);
       const done_div = document.getElementById('done-button-' + id);
@@ -93,19 +93,19 @@ export default function TodoListItem(selection, aim) {
       task_action.classList.remove('hideme');
       task_title.innerHTML = todoInput;
       // console.log(234);
-     
-  }).catch(function (err) {
-      alert('An error occured while updating the task');
-  }   
 
-  )
-  
+    }).catch(function (err) {
+      alert('An error occured while updating the task');
+    }
+
+    )
+
 
   }
 
   return (
     <>
-       <li className='border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2'>
+      <li className='border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2'>
         {/* <input
           id='input-button-1'
           type='text'
@@ -151,7 +151,7 @@ export default function TodoListItem(selection, aim) {
             />
           </button>
         </span> */}
-      </li> 
+      </li>
     </>
   )
 }

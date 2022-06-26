@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import axios from '../utils/axios'
+import auth from '../middlewares/auth_required'
+import noAuth from '../middlewares/no_auth_required'
 
 export default function RegisterForm() {
+  useEffect(() => { auth() }, []);
+  useEffect(() => { noAuth() }, []);
 
   const [password, setPassword] = useState('')
-    const [username, setUsername] = useState('')
+  const [username, setUsername] = useState('')
   const login = () => {
     /***
      * @todo Complete this function.
@@ -13,7 +17,7 @@ export default function RegisterForm() {
      * @todo 3. Set the token in the context (See context/auth.js)
      */
 
-     
+
 
     const dataForApiRequest = {
       username: username,
@@ -29,7 +33,7 @@ export default function RegisterForm() {
       alert('Account does not exist, please register first');
     })
 
-  
+
   }
 
   return (
