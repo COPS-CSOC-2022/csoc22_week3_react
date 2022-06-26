@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from '../context/auth'
-import no_authRequired from '../middlewares/no_auth_required'
+import noAuthRequired from '../middlewares/no_auth_required'
 import { useRouter } from 'next/router'
 import axios from '../utils/axios'
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,7 +12,7 @@ export default function LoginForm() {
   const { setToken } = useAuth()
   const router = useRouter()
 
-  no_authRequired ();
+  noAuthRequired ();
 
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
