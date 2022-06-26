@@ -15,6 +15,8 @@ export const AuthProvider = ({ children }) => {
   const [cookies, setCookies, removeCookies] = useCookies(['auth'])
   const token = cookies.token
 
+  authRequired();
+  
   const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
   const deleteToken = () => removeCookies('token')
   const logout = () => {
