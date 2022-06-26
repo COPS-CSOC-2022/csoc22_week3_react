@@ -1,12 +1,16 @@
 /***
  * @todo Redirect the user to main page if token is present.
  */
-function noAuth() {
-    
+import router from "next/router";
 
- if (localStorage.token) {
-    window.location.href = '/';
-} 
+import react from 'react'
+
+function noAuth() {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+        router.push('/');
+    }
 }
 
-export default  noAuth();
+export default noAuth;
