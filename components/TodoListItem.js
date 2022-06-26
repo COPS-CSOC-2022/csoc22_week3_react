@@ -62,13 +62,13 @@ const {token}=useAuth()
       }
   }
   return (
-    <div >
-    <>
-      <li className='border flex border-gray-500 rounded px-3 py-3 justify-between items-center mb-2 bg-transparent hover:bg-green-200'>
+  
+    <div>
+      <li className='border flex bg-purple-100 border-gray-700 rounded px-3 py-3 justify-between items-center mb-2 bg-transparent  hover:bg-green-200 text-black'>
         <input
           id={`input-button-${props.id}`}
           type='text'
-          className={`${edit?'':'hideme'} appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input`}
+          className={`${edit?'':'hideme'} appearance-none border rounded w-full py-2 px-3 text-black-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input`}
           placeholder='Edit The Task'
 
           value={task}
@@ -76,7 +76,7 @@ const {token}=useAuth()
         />
         <div id={`done-button-${props.id}`} className={`${edit?'':'hideme'}`}>
           <button
-            className='bg-transparent hover:bg-yellow-500 text-gray-700 text-sm  hover:text-white py-2 px-3 border border-gray-500 hover:border-transparent rounded todo-update-task'
+            className='bg-transparent hover:bg-yellow-600 text-black-700 text-sm  hover:text-white py-2 px-3 border border-gray-500 hover:border-transparent rounded todo-update-task'
             type='button'
             onClick={()=>updateTask(props.id)}
           >
@@ -125,7 +125,7 @@ pauseOnFocusLoss
 draggable
 pauseOnHover
 />
-    </>
-</div>
+    </div>
+
   )
 }

@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
       axios
         .get('auth/profile/', {
           headers: {
-            Authorization: 'Token ' + token,
+            Authorization: 'Token ' +  localStorage.getItem("token")
           },
         })
         .then((response) => {

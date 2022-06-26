@@ -7,12 +7,12 @@ import RegisterForm from './LoginForm';
 
 export default function Nav() {
   const [navlook,setNavlook]=useState(null)
-  let {token, logout, profileName, avatarImage,RegisterForm } = useAuth()
+  let {token, logout, profileName, avatarImage } = useAuth()
 
 const loggedin = (
   <div className='inline-block relative w-28'>
     <div className='group inline-block relative'>
-      <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
+      <button className='bg-green-100 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
         <img src={avatarImage} />
         <span className='mr-1'>{profileName}</span>
         <svg
@@ -55,9 +55,9 @@ useEffect(() => {
     setNavlook(notloggedin);
     console.log('no');
   }
-},[logout,RegisterForm]);
+},[logout,profileName,avatarImage,RegisterForm,Nav]);
   return (
-    <nav className='bg-red-700'>
+    <nav className='bg-red-500'>
       <ul className='flex items-center justify-between p-5'>
         <ul className='flex items-center justify-between space-x-4'>
           <li>

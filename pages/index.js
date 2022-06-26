@@ -11,8 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
 export default function Home() {
-  const { token } = useAuth()
-    let [taskList, setTaskList] = useState([]);
+    let [todotaskList, setTodoTaskList] = useState([]);
+    let {ProfileName,avatarImage}=useAuth();
+    let {setAvatarImage,setProfileName}=useAuth();
   // let taskList=[];
   function getTasks() {
      axios({
@@ -25,7 +26,7 @@ export default function Home() {
       .then((res)=>{
           const { data, status } = res;
          
-          setTaskList(data);
+          setTodoTaskList(data);
           // data.forEach(ta => {
           //   taskList.push(ta); 
           // });
@@ -39,9 +40,9 @@ export default function Home() {
 
   }
 
-  const addNewTask = (task) => {
-    const temp = [...taskList, task];
-    setTaskList(temp)
+  const addNewTask = (taskToAdd) => {
+    const toadd = [...todotaskList, taskToAdd];
+    setTodoTaskList(toadd)
    
   //  temp.forEach(ta => {
   //   taskList.push(ta); 
@@ -51,12 +52,12 @@ export default function Home() {
 };
 
 const deleteTask = (id) => {
-    let temp = [...taskList];
-    temp = temp.filter((task) => {
+    let toadd = [...todotaskList];
+    toadd = toadd.filter((task) => {
         return task.id != id;
     });
 
-      setTaskList(temp)
+      setTodoTaskList(toadd)
 
 // temp.forEach(ta => {
 //   taskList.push(ta); 
@@ -73,22 +74,23 @@ useEffect(() => {
             }
         })
         .then((res) => {
-            // setAvatarImage(
-            //     "https://ui-avatars.com/api/?name=" +
-            //         response.data.name +
-            //         "&background=faebd7&size=33&color=007bff"
-            // );
-            // setProfileName(response.data.name);
+            setAvatarImage(
+                "https://ui-avatars.com/api/?name=" +
+                    res.data.name +
+                    "&background=faebd7&size=33&color=007bff"
+            );
+            setProfileName(res.data.name);
             getTasks();
             
         })
-        .catch((error) => {
-           toast.error
+        .catch((err) => {
+           toast.error('Error found!')
+           console.error(err);
         });
 }, []);
 
   return (
-    <div>
+    <div >
       <center>
         <AddTask addNewTask={addNewTask} />
         <ul className='flex-col mt-9 max-w-sm mb-3 '>
@@ -96,11 +98,11 @@ useEffect(() => {
             Available Tasks
           </span>
           <br/>
-                    <div className="tasks ">
-                    {taskList.map((task) => (
+                    <div className="tasks text-black">
+                    {todotaskList.map((task) => (
                        <TodoListItem task={task.title} id={task.id} key={task.id}
                       deleteTask={deleteTask}
-                        />
+                       className="text-black" />
                     ))}
                     </div>
         </ul>

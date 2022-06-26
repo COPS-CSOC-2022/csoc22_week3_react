@@ -35,22 +35,24 @@ export default function RegisterForm() {
                    setToken(data.token);
                    localStorage.setItem("token", data.token);
                    router.push('/');
+                   
                  })
                  .catch((err)=>{
                      console.log(err)
                      toast.error('Wrong username or password!!')
                  });
   }
+  
      }
   return (
-    <div className='bg-grey-lighter min-h-screen flex flex-col'>
-      <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
-        <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
+    <div className='bg-gray-200 min-h-screen flex flex-col'>
+      <div className=' container max-w-sm mx-auto  flex-1 flex flex-col items-center justify-center px-2'>
+        <div className='login-box bg-white px-6 py-8 rounded shadow-md text-black w-full'>
           <h1 className='mb-8 text-3xl text-center'>Login</h1>
           <input
             type='text'
             value={user}
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='block border border-grey-light w-full p-3 rounded mb-5'
             name='inputUsername'
             id='inputUsername'
             onChange={(e) => setUser(e.target.value)}
@@ -59,16 +61,15 @@ export default function RegisterForm() {
           <input
             type='password'
             value={pwd}
-            className='block border border-grey-light w-full p-3 rounded mb-4'
+            className='block border border-grey-light w-full p-3 rounded mb-5'
             name='inputPassword'
             id='inputPassword'
             placeholder='Password'
             onChange={(e) => setPwd(e.target.value)}
           />
-
-          <button
+          <button id="loginbtn"
             type='submit'
-            className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1'
+            className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-700 hover:border-transparent focus:outline-none my-1'
             onClick={login}
           >
             Login

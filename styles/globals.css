@@ -22,3 +22,18 @@
 .todo-task {
   max-width: 260px;
 }
+
+.login-box{
+  border-radius: 2rem;
+  box-shadow: 5px 10px grey;
+}
+ #loginbtn{
+  border-radius: 1.5rem;
+ }
+ .reg-box{
+  border-radius: 2rem;
+  box-shadow: 5px 10px grey;
+ }
+ #regbtn{
+  border-radius: 1.5rem;
+ }
