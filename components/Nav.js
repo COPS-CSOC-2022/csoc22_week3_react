@@ -1,36 +1,45 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import Link from 'next/link'
-import { useAuth } from '../context/auth'
-/**
- *
- * @todo Condtionally render login/register and Profile name in NavBar
- */
+import Link from "next/link";
+import { useAuth } from "../context/auth";
+import { useEffect } from 'react'
+import React from "react";
+import { useState } from "react";
+import RegisterForm from "../components/LoginForm"
+
 
 export default function Nav() {
+  const [Render, SetRender] = useState(null);
+
   const { logout, profileName, avatarImage } = useAuth()
 
+  useEffect(() => {
+    if (localStorage.getItem('token') == null || localStorage.getItem('token') == undefined) SetRender(false)
+
+    else SetRender(true)
+
+  }, [logout, profileName, avatarImage, RegisterForm, Nav])
   return (
-    <nav className='bg-blue-600'>
+    <nav className='bg-red-600' style={{ backgroundColor: '#F582AE' }} >
       <ul className='flex items-center justify-between p-5'>
-        <ul className='flex items-center justify-between space-x-4'>
+        <ul className='flex items-center justify-between space-x-4' >
           <li>
             <Link href="/" passHref={true}>
               <a>
-                <h1 className='text-white font-bold text-xl'>Todo</h1>
+                <h1 className='font-bold text-xl' style={{ color: '#001858' }}>Todo</h1>
               </a>
             </Link>
           </li>
         </ul>
-        <ul className='flex'>
-          <li className='text-white mr-2'>
+        <ul className='flex' style={{ display: !Render ? 'flex' : 'none' }}>
+          <li className=' mr-2' style={{ color: '#001815' }}>
             <Link href='/login'>Login</Link>
           </li>
-          <li className='text-white'>
+          <li className='' style={{ color: '#001858' }}>
             <Link href='/register'>Register</Link>
           </li>
         </ul>
-        <div className='inline-block relative w-28'>
+        <div className='inline-block relative w-28' style={{ display: Render ? 'block' : 'none' }}>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
               <img src={avatarImage} />
@@ -57,6 +66,6 @@ export default function Nav() {
           </div>
         </div>
       </ul>
-    </nav>
+    </ nav>
   )
 }
