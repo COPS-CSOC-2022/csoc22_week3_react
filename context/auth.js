@@ -2,7 +2,6 @@ import { useEffect, useState, useContext, createContext } from 'react'
 import { useCookies } from 'react-cookie'
 import axios from '../utils/axios'
 import { useRouter } from 'next/router'
-
 const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
@@ -16,8 +15,9 @@ export const AuthProvider = ({ children }) => {
   const deleteToken = () => removeCookies('token')
   const logout = () => {
     deleteToken()
-    router.push('/login')
+    router.reload()
   }
+
 
   useEffect(() => {
     if (token) {
