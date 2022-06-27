@@ -1,12 +1,13 @@
-import TodoListItem from '../components/TodoListItem'
-import AddTask from '../components/AddTask'
-import { useEffect, useState } from 'react'
-import axios from '../utils/axios'
-import { useAuth } from '../context/auth'
+import TodoListItem from "../components/TodoListItem";
+import TodoListItem from "../components/TodoListItem";
+import AddTask from "../components/AddTask";
+import { useEffect, useState } from "react";
+import axios from "../utils/axios";
+import { useAuth } from "../context/auth";
 
 export default function Home() {
-  const { token } = useAuth()
-  const [tasks, setTasks] = useState([])
+  const { token } = useAuth();
+  const [tasks, setTasks] = useState([]);
 
   function getTasks() {
     /***
@@ -20,13 +21,13 @@ export default function Home() {
     <div>
       <center>
         <AddTask />
-        <ul className='flex-col mt-9 max-w-sm mb-3 '>
-          <span className='inline-block bg-blue-600 py-1 mb-2 px-9 text-sm text-white font-bold rounded-full '>
+        <ul className="flex-col mt-9 max-w-sm mb-3 ">
+          <span className="inline-block bg-blue-600 py-1 mb-2 px-9 text-sm text-white font-bold rounded-full ">
             Available Tasks
           </span>
           <TodoListItem />
         </ul>
       </center>
     </div>
-  )
+  );
 }
