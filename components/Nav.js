@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { useAuth } from '../context/auth'
 /**
  *
@@ -8,33 +9,46 @@ import { useAuth } from '../context/auth'
  */
 
 export default function Nav() {
+  const [logState, setLogState] = useState(false);
   const { logout, profileName, avatarImage } = useAuth()
-
+  
+  useEffect(()=>{
+    if(localStorage.getItem('token'))
+  {
+    setLogState(true);
+  }
+  else{
+    setLogState(false);
+  }},[profileName])
+  
   return (
-    <nav className='bg-blue-600'>
+    <nav className='bg-blue-600 navbar'>
       <ul className='flex items-center justify-between p-5'>
         <ul className='flex items-center justify-between space-x-4'>
           <li>
             <Link href="/" passHref={true}>
               <a>
-                <h1 className='text-white font-bold text-xl'>Todo</h1>
+                <h1 className='text-white font-bold text-3xl ml-4'>Todo</h1>
               </a>
             </Link>
           </li>
         </ul>
-        <ul className='flex'>
-          <li className='text-white mr-2'>
+        {(!logState) &&
+        <ul className='flex' >
+           <li className='text-white mr-3 login'>
             <Link href='/login'>Login</Link>
           </li>
-          <li className='text-white'>
+            <li className='text-white register'>
             <Link href='/register'>Register</Link>
           </li>
         </ul>
-        <div className='inline-block relative w-28'>
+        }
+        {(logState) &&
+        <div className='inline-block relative w-40' >
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
               <img src={avatarImage} />
-              <span className='mr-1'>{profileName}</span>
+              <span className='mr-1 ml-3'>{profileName}</span>
               <svg
                 className='fill-current h-4 w-4'
                 xmlns='http://www.w3.org/2000/svg'
@@ -56,6 +70,7 @@ export default function Nav() {
             </ul>
           </div>
         </div>
+        }
       </ul>
     </nav>
   )
