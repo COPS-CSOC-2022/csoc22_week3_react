@@ -1,55 +1,111 @@
-/* eslint-disable @next/next/no-img-element */
+import React, {useEffect, useState} from "react"
+import { useAuth } from '../context/auth'
+import axios from '../utils/axios'
+import { API_URL } from '../utils/constants'
+import { displayErrorToast, displayInfoToast, displaySuccessToast } from './ToastMessage';
 
-export default function TodoListItem() {
+export default function TodoListItem(props) {
+  const [enteredTask, setEnteredTask] = useState(props.task)
+  const {token} = useAuth()
+  const taskValue = enteredTask.trim();
+
+
+  const del = () => {
+    deleteTask(props.id)
+  }
+
+  const ed = () => {
+    editTask(props.id)
+  }
+
+  const up = () => {
+    updateTask(props.id);
+    document.getElementById("input-button-"+props.id).classList.add("hideme");
+    document.getElementById("done-button-"+props.id).classList.add("hideme");
+    document.getElementById("task-"+props.id).classList.remove("hideme");
+    document.getElementById("task-action-"+props.id).classList.remove("hideme");
+  }
+
+ 
   const editTask = (id) => {
-    /**
-     * @todo Complete this function.
-     * @todo 1. Update the dom accordingly
-     */
+    document.getElementById("input-button-"+id).classList.remove("hideme");
+    document.getElementById("done-button-"+id).classList.remove("hideme");
+    document.getElementById("task-"+id).classList.add("hideme");
+    document.getElementById("task-action-"+id).classList.add("hideme");
   }
-
   const deleteTask = (id) => {
-    /**
-     * @todo Complete this function.
-     * @todo 1. Send the request to delete the task to the backend server.
-     * @todo 2. Remove the task from the dom.
-     */
+    axios({
+        headers: {
+          Authorization: 'Token ' + token
+        },
+        url:'todo/' + id + '/',
+        method: 'DELETE',
+    }).then(() => {
+        displaySuccessToast("Task has been successfully deleted...");
+        props.displayTasks();
+    }).catch((err) => {
+       displayErrorToast('Something went wrong')
+    })
   }
 
-  const updateTask = (id) => {
-    /**
-     * @todo Complete this function.
-     * @todo 1. Send the request to update the task to the backend server.
-     * @todo 2. Update the task in the dom.
-     */
+   const updateTask = (id) => {
+     
+
+    if (taskValue === '') {
+      displayErrorToast('Please enter a task')
+    }
+    else{
+      axios({
+        headers:{
+          Authorization:'Token '+token
+        },
+        url:'todo/'+id+'/',
+        method:'PUT',
+        data:{title:enteredTask}
+  
+      })
+      .then((res) => {
+        setEnteredTask(res.data.title);
+  
+        displaySuccessToast('Task updated successfully')
+  
+      })
+      .catch(() => {
+  
+       displayErrorToast('Something went wrong')
+      })
+  
+    }
   }
 
   return (
     <>
       <li className='border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2'>
         <input
-          id='input-button-1'
+          id={`input-button-${props.id}`}
           type='text'
           className='hideme appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input'
           placeholder='Edit The Task'
+          onChange={(event)=>setEnteredTask(event.target.value)}
+          value={enteredTask}
         />
-        <div id='done-button-1' className='hideme'>
+        <div id={`done-button-${props.id}`} className='hideme'>
           <button
             className='bg-transparent hover:bg-gray-500 text-gray-700 text-sm  hover:text-white py-2 px-3 border border-gray-500 hover:border-transparent rounded todo-update-task'
             type='button'
-            onClick={updateTask(1)}
+            onClick={up}
           >
             Done
           </button>
         </div>
-        <div id='task-1' className='todo-task  text-gray-600'>
-          Sample Task 1
+        <div id={`task-${props.id}`} className='todo-task  text-gray-600'>
+          {enteredTask}
         </div>
-        <span id='task-actions-1' className=''>
+        <span id={`task-action-${props.id}`}className=''>
           <button
             style={{ marginRight: '5px' }}
             type='button'
-            onClick={editTask(1)}
+            onClick={ed}
             className='bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 py-2'
           >
             <img
@@ -62,7 +118,7 @@ export default function TodoListItem() {
           <button
             type='button'
             className='bg-transparent hover:bg-red-500 hover:text-white border border-red-500 hover:border-transparent rounded px-2 py-2'
-            onClick={deleteTask(1)}
+            onClick={del}
           >
             <img
               src='https://res.cloudinary.com/nishantwrp/image/upload/v1587486661/CSOC/delete.svg'
