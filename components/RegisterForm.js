@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import axios from '../utils/axios';
 import { useAuth } from '../context/auth';
@@ -29,7 +30,7 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      iziToast.destroy();
+      
       displayInfoToast('Please fill all the details')
       return false;
     }
@@ -64,7 +65,7 @@ export default function Register() {
           router.push('/');
         })
         .catch(function (err) {
-          iziToast.destroy();
+          
           displayErrorToast
           ('An account using same email id or password is created')
          

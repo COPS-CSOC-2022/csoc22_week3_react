@@ -14,7 +14,7 @@ export default function RegisterForm() {
   const loginFieldsValid =(username,password) => {
     if(username==='' || password==='')
     {
-      iziToast.destroy();
+     
       displayInfoToast('Please fill the given fields')
       return false;
     }
@@ -32,7 +32,7 @@ export default function RegisterForm() {
    
     
     if(loginFieldsValid(username,password)){
-      iziToast.destroy();
+      
      displayInfoToast('Please Wait')
 
       const dataForApiRequest={
@@ -48,13 +48,13 @@ export default function RegisterForm() {
       .then(
         ({data}) => {
           setToken(data.token);
-          iziToast.destroy();
+         
           displaySuccessToast('Logged in successfully')
           router.push('/');
     })
       .catch(
         (err) => {
-          iziToast.destroy();
+          
           displayErrorToast('This account does not exist')
       
         }

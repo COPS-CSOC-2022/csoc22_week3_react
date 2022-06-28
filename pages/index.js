@@ -43,7 +43,7 @@ export default function Home() {
     })
     .catch(() => {
       
-      iziToast.destroy();
+     
       displayErrorToast('Something went wrong')
     });
   }
@@ -67,12 +67,12 @@ export default function Home() {
               '&background=fff&size=33&color=007bff'
           );
           setProfileName(response.data.name);
-          iziToast.destroy();
+          
           displaySuccessToast('Loading tasks')
           getTasks();
         })
         .catch((error) => {
-          iziToast.destroy();
+         
          displayErrorToast('Some error occured')
         })
     }

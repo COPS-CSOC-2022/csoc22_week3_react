@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     deleteToken();
     router.push('/login');
-    iziToast.destroy();
+    
     iziToast.success({
       message:"Logged You Out"
     })
