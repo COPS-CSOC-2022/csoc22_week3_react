@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
  * @todo Condtionally render login/register and Profile name in NavBar
  */
 
+
 export default function Nav() {
   const { logout, profileName, avatarImage,token } = useAuth();
   const [state,setState]=useState(null);
@@ -53,11 +54,11 @@ export default function Nav() {
 
   const NoAuthState=(
     <ul className='flex'>
-          <li className='text-white mr-2'>
-            <Link href='/login'>Login</Link>
+          <li className='text-white mr-2 px-4 py-2 rounded-lg  hover:text-emerald-100'>
+            <Link href='/login'>🔒 Login</Link>
           </li>
-          <li className='text-white'>
-            <Link href='/register'>Register</Link>
+          <li className='text-white mr-2 px-4 py-2 rounded-lg  hover:text-emerald-100'>
+            <Link href='/register'>📋 Register</Link>
           </li>
         </ul>
   )
@@ -65,12 +66,12 @@ export default function Nav() {
 
   return (
     <nav className='bg-gray-600'>
-      <ul className='flex items-center justify-between p-5'>
-        <ul className='flex items-center justify-between space-x-4'>
+      <ul className='flex items-center justify-between p-6'>
+        <ul className='flex items-center justify-between space-x-20'>
           <li>
             <Link href="/" passHref={true}>
               <a>
-                <h1 className='text-white font-bold text-xl'>Todo</h1>
+                <h1 className='text-white font-bold text-xl'> 📝 Todo</h1>
               </a>
             </Link>
           </li>

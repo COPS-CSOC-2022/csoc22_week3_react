@@ -24,9 +24,7 @@ export const AuthProvider = ({ children }) => {
     deleteToken();
     router.push('/login');
     
-    iziToast.success({
-      message:"Logged You Out"
-    })
+    displaySuccessToast('Logged you out')
   }
 
   useEffect(() => {
