@@ -1,17 +1,20 @@
-import React, { useState } from 'react'
-import axios from '../utils/axios'
-import { useAuth } from '../context/auth'
-import { useRouter } from 'next/router'
+
+
+import React, { useState } from 'react';
+import axios from '../utils/axios';
+import { useAuth } from '../context/auth';
+import { useRouter } from 'next/router';
+import { displayErrorToast, displayInfoToast } from './alert';
 
 export default function Register() {
-  const { setToken } = useAuth()
-  const router = useRouter()
+  const { setToken } = useAuth();
+  const router = useRouter();
 
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [username, setUsername] = useState('')
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
 
   const registerFieldsAreValid = (
     firstName,
@@ -27,11 +30,12 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
-      return false
+      
+      displayInfoToast('Please fill all the details')
+      return false;
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log('Please enter a valid email address.')
+     displayInfoToast('Please enter a valid email address')
       return false
     }
     return true
@@ -43,7 +47,7 @@ export default function Register() {
     if (
       registerFieldsAreValid(firstName, lastName, email, username, password)
     ) {
-      console.log('Please wait...')
+      displayInfoToast('Please wait')
 
       const dataForApiRequest = {
         name: firstName + ' ' + lastName,
@@ -57,80 +61,84 @@ export default function Register() {
         dataForApiRequest,
       )
         .then(function ({ data, status }) {
-          setToken(data.token)
-          router.push('/')
+          setToken(data.token);
+          router.push('/');
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          
+          displayErrorToast
+          ('An account using same email id or password is created')
+         
         })
     }
   }
 
   return (
-    <div className='bg-grey-lighter min-h-screen flex flex-col'>
-      <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
-        <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
-          <h1 className='mb-8 text-3xl text-center'>Register</h1>
-          <input
-            type='text'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
-            name='inputFirstName'
-            id='inputFirstName'
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder='First Name'
-          />
-          <input
-            type='text'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
-            name='inputLastName'
-            id='inputLastName'
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder='Last Name'
-          />
-
-          <input
-            type='email'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
-            name='inputEmail'
-            id='inputEmail'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder='Email Address'
-          />
-
-          <input
-            type='text'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
-            name='inputUsername'
-            id='inputUsername'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder='Username'
-          />
-
-          <input
-            type='password'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
-            name='inputPassword'
-            id='inputPassword'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder='Password'
-          />
-
-          <button
-            type='submit'
-            className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1'
-            onClick={register}
-          >
-            Register
-          </button>
-        </div>
-      </div>
+    
+    <div className="box">
+     <form>
+     <h1 className='mb-8 text-3xl text-center'>Register</h1>
+     <div className="input-container">
+        <input type="text" required=""
+        name="inputUsername"
+        id="inputUsername"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}/>
+        <label
+    
+        >Username</label>		
     </div>
-  )
+    <div className="input-container">
+
+        <input type="text" required=""
+        name="inputFirstName"
+        id="inputFirstName"
+        className='block border border-grey-light w-full p-3 rounded mb-4'
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}/>
+        <label
+    
+        >Firstname</label>
+        
+    </div>
+    <div className="input-container">
+        <input type="text" required=""
+       name="inputLastName"
+       className='block border border-grey-light w-full p-3 rounded mb-4'
+       id="inputLastName"
+       value={lastName}
+       onChange={(e) => setLastName(e.target.value)}/>
+        <label
+    
+        >Lastname</label>		
+    </div>
+    <div className="input-container">
+        <input type="text" required=""
+        name="inputEmail"
+        className='block border border-grey-light w-full p-3 rounded mb-4'
+        id="inputEmail"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}/>
+        <label
+    
+        >Email</label>		
+    </div>
+    <div className="input-container">		
+        <input type="password" required=""
+        name="inputPassword"
+        className='block border border-grey-light w-full p-3 rounded mb-4'
+        id="inputPassword"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}/>
+        <label
+    
+        >Password</label>
+    </div>
+        <button type="button" className="btn"
+        onClick={register}>Register</button>
+</form>	
+</div>
+
+
+);
 }
