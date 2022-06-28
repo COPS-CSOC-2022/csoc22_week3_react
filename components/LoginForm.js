@@ -1,11 +1,32 @@
+import axios from '../utils/axios'
+import React, { useState } from 'react'
+import { useAuth } from '../context/auth'
+import { useRouter } from 'next/router'
+import { API_URL } from '../utils/constants';
+
 export default function RegisterForm() {
+  // no_auth_required();
+  const [ipusername,settheName]=useState("")
+  const [pwd,setpwd]=useState("")
+  const {setToken,token} = useAuth()
+  const router = useRouter()
+
   const login = () => {
-    /***
-     * @todo Complete this function.
-     * @todo 1. Write code for form validation.
-     * @todo 2. Fetch the auth token from backend and login the user.
-     * @todo 3. Set the token in the context (See context/auth.js)
-     */
+    if(ipusername===''||pwd==='')
+    {
+      alert('The fields can`t be left empty!');
+    }
+    else{
+    axios({
+      url:API_URL+"auth/login/",
+      method : "post",
+      data : {username:ipusername,password:pwd}
+    }).then((res)=>{
+      const {data,status} = res;
+      setToken(data.token),
+      router.push('/')
+    })
+  }
   }
 
   return (
@@ -19,6 +40,8 @@ export default function RegisterForm() {
             name='inputUsername'
             id='inputUsername'
             placeholder='Username'
+            value={ipusername}
+            onChange={(e)=>{settheName(e.target.value)}}
           />
 
           <input
@@ -27,6 +50,8 @@ export default function RegisterForm() {
             name='inputPassword'
             id='inputPassword'
             placeholder='Password'
+            value={pwd}
+            onChange={(e)=>{setpwd(e.target.value)}}
           />
 
           <button
@@ -40,4 +65,4 @@ export default function RegisterForm() {
       </div>
     </div>
   )
-}
+  }
