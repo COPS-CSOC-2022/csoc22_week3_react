@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import axios from '../utils/axios'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
 
@@ -27,11 +29,11 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
+      toast.error('Please fill all the fields',{position: 'bottom-right'}) 
       return false
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log('Please enter a valid email address.')
+      toast.error('Enter a valid email address',{position: 'bottom-right'}) 
       return false
     }
     return true
@@ -57,19 +59,19 @@ export default function Register() {
         dataForApiRequest,
       )
         .then(function ({ data, status }) {
+          toast.success('Registration Success',{position: 'bottom-right'})
           setToken(data.token)
           router.push('/')
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          toast.error('An account using same email or username is already created',{position: 'bottom-right'}) 
         })
     }
   }
 
   return (
     <div className='bg-grey-lighter min-h-screen flex flex-col'>
+      <ToastContainer />
       <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
         <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
           <h1 className='mb-8 text-3xl text-center'>Register</h1>
