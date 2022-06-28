@@ -67,13 +67,13 @@ export default function AddTask(props) {
       <input
         id="input-field"
         type='text'
-        className='todo-add-task-input px-4 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full'
+        className='todo-add-task-input px-4 py-2 placeholder-Gray-300 text-Gray-600 bg-white rounded text-sm border border-Gray-300 outline-none focus:outline-none focus:ring w-full'
         placeholder='Enter Task'
         onChange={(e) => {setTask(e.target.value);}}
       />
       <button
         type='button'
-        className='todo-add-task bg-transparent hover:bg-green-500 text-green-700 text-sm hover:text-white px-3 py-2 border border-green-500 hover:border-transparent rounded'
+        className='todo-add-task'/* bg-transparent hover:bg-yellow-400 text-green-700 text-sm hover:text-white px-3 py-2 border border-green-500 hover:border-transparent rounded'*/
         onClick={addTask}
       >
         Add Task

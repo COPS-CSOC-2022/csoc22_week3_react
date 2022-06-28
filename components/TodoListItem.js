@@ -89,7 +89,7 @@ export default function TodoListItem(props) {
   return (
     <>
     
-        <li className='border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2'>
+        <li className='todo-add-task1'>
           <input
             id={'input-button-'+id}
             type='text'
@@ -114,7 +114,7 @@ export default function TodoListItem(props) {
               style={{ marginRight: '5px' }}
               type='button'
               onClick={() => editTask(id)}
-              className='bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 py-2'
+              className='bg-transparent hover:bg-green-400 hover:text-white border border-green-500 hover:border-transparent rounded px-2 py-2'
             >
               <img
                 src='https://res.cloudinary.com/nishantwrp/image/upload/v1587486663/CSOC/edit.png'
