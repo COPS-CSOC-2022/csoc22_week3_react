@@ -9,7 +9,7 @@ export default function Home() {
   const { token } = useAuth()
   const [tasks, setTasks] = useState([])
   
-  const newElement = tasks.map(task => {return <TodoListItem id={task.id} task={task.title} displayTasks={getTasks} />})
+  const newElement = tasks.map(task => {return <TodoListItem key={task.id} id={task.id} task={task.title} displayTasks={getTasks} />})
 
 
   useEffect(() => {
