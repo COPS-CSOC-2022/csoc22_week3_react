@@ -2,6 +2,8 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { useAuth } from '../context/auth'
+import tokenNotPresent from '../middlewares/auth_required'
+import tokenPresent from '../middlewares/no_auth_required'
 /**
  *
  * @todo Condtionally render login/register and Profile name in NavBar
