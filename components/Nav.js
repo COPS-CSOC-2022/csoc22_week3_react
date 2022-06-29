@@ -2,13 +2,15 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { useAuth } from '../context/auth'
-/**
- *
- * @todo Condtionally render login/register and Profile name in NavBar
- */
+import { useState } from 'react'
+
 
 export default function Nav() {
   const { logout, profileName, avatarImage } = useAuth()
+  const [mounted,setMounted] = useState(true)
+  
+  // useEffect(()=>{(token)?setMounted(true):setMounted(false)},[])
+  // useEffect(()=>{(token)?setMounted(true):setMounted(false)},[token])
 
   return (
     <nav className='bg-blue-600'>
