@@ -8,8 +8,9 @@ import { useAuth } from '../context/auth'
  */
 
 export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
-
+  const { logout, profileName, avatarImage,token } = useAuth()
+  // console.log(profileName)
+  // console.log(token)
   return (
     <nav className='bg-blue-600'>
       <ul className='flex items-center justify-between p-5'>
@@ -22,6 +23,7 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
+        {!token &&
         <ul className='flex'>
           <li className='text-white mr-2'>
             <Link href='/login'>Login</Link>
@@ -29,7 +31,8 @@ export default function Nav() {
           <li className='text-white'>
             <Link href='/register'>Register</Link>
           </li>
-        </ul>
+        </ul>}
+        {token &&(
         <div className='inline-block relative w-28'>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
@@ -55,7 +58,8 @@ export default function Nav() {
               </li>
             </ul>
           </div>
-        </div>
+        </div>)
+      }
       </ul>
     </nav>
   )
