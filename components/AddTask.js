@@ -17,6 +17,8 @@ export function displayErrorToast(message) {
   toast.error(message);
 }
 export default function AddTask() {
+  const {token} = useAuth();
+  const [task, setTask] = useState("")
   const addTask = () => {
     if (task===""){
       displayWarnToast("Task is empty!!");
