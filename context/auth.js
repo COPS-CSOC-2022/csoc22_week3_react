@@ -2,6 +2,8 @@ import { useEffect, useState, useContext, createContext } from 'react'
 import { useCookies } from 'react-cookie'
 import axios from '../utils/axios'
 import { useRouter } from 'next/router'
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AuthContext = createContext({})
 
@@ -15,8 +17,9 @@ export const AuthProvider = ({ children }) => {
   const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
   const deleteToken = () => removeCookies('token')
   const logout = () => {
+    toast.info('Please wait...',{position: toast.POSITION.TOP_CENTER})
     deleteToken()
-    router.push('/login')
+    router.push("LOGIN","/")
   }
 
   useEffect(() => {
