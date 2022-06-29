@@ -1,5 +1,37 @@
-export default function AddTask() {
+import React, { useEffect, useState }from "react"
+import axios from "axios"
+import { useAuth } from '../context/auth'
+import { fuchsia } from "tailwindcss/colors";
+
+export default function AddTask(props) {
+  const [ newTask, setNewTask ] = useState('');
+  const {token} = useAuth();
+
   const addTask = () => {
+    if(newTask === ''){
+      console.log("Please enter task")
+    }
+    else{
+      const dataForApiRequest = {
+        newTask: newTask
+      }
+      const headersForApiRequest = {
+        headers: { Authorization: 'Token '+token }
+      }
+      axios.post(
+        "todo/create/", 
+        dataForApiRequest, 
+        headersForApiRequest
+      )
+      .then(res => {
+        setNewTask("");
+        props.displayTasks();
+        console.log("Task Added");
+      })
+      .catch(function(err){
+        console.log(err);
+      })
+    }
     /**
      * @todo Complete this function.
      * @todo 1. Send the request to add the task to the backend server.
@@ -12,6 +44,10 @@ export default function AddTask() {
         type='text'
         className='todo-add-task-input px-4 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full'
         placeholder='Enter Task'
+        onChange={(e) => {
+          setNewTask(e.target.value)
+        }}
+        value={newTask}
       />
       <button
         type='button'
