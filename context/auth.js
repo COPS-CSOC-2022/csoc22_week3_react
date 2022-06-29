@@ -13,10 +13,14 @@ export const AuthProvider = ({ children }) => {
   const token = cookies.token
 
   const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
-  const deleteToken = () => removeCookies('token')
+  const deleteToken = () => {removeCookies('token')
+  setAvatarImage('#')
+  setProfileName('')}
   const logout = () => {
     deleteToken()
+    
     router.push('/login')
+    router.reload();
   }
 
   useEffect(() => {

@@ -4,27 +4,45 @@ import { useEffect, useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 
+
 export default function Home() {
   const { token } = useAuth()
   const [tasks, setTasks] = useState([])
+  
+  const newElement = tasks.map(task => {return <TodoListItem key={task.id} id={task.id} task={task.title} displayTasks={getTasks} />})
+
+
+  useEffect(() => {
+   getTasks()
+  })
+
 
   function getTasks() {
-    /***
-     * @todo Fetch the tasks created by the user.
-     * @todo Set the tasks state and display them in the using TodoListItem component
-     * The user token can be accessed from the context using useAuth() from /context/auth.js
-     */
+     
+     axios.get('todo/',{
+      headers: {
+        Authorization: 'Token ' + token
+      }
+  })
+  .then(function ({ data, status }) {
+      setTasks(data);
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+  
   }
 
   return (
     <div>
       <center>
-        <AddTask />
+        <AddTask displayTasks={getTasks} />
         <ul className='flex-col mt-9 max-w-sm mb-3 '>
           <span className='inline-block bg-blue-600 py-1 mb-2 px-9 text-sm text-white font-bold rounded-full '>
             Available Tasks
           </span>
-          <TodoListItem />
+          {newElement}
         </ul>
       </center>
     </div>

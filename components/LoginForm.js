@@ -1,11 +1,71 @@
+import React, { useState } from 'react'
+import axios from '../utils/axios'
+import { useAuth } from '../context/auth'
+import { useRouter } from 'next/router'
+import TodoListItem from './TodoListItem'
+
+import no_auth_required from '../middlewares/no_auth_required'
+
+//toastify imports
+import { displayErrorToast, displayInfoToast, displaySuccessToast } from './ToastMessage';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
 export default function RegisterForm() {
-  const login = () => {
-    /***
-     * @todo Complete this function.
-     * @todo 1. Write code for form validation.
-     * @todo 2. Fetch the auth token from backend and login the user.
-     * @todo 3. Set the token in the context (See context/auth.js)
-     */
+
+
+  const { setToken } = useAuth()
+  const router = useRouter()
+
+  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
+
+  const loginFieldsAreValid = (
+    username,
+    password
+  ) => {
+    if (
+      username === '' ||
+      password === ''
+    ) {
+      displayErrorToast('Please fill all the fields correctly.')
+      return false
+    }
+    return true
+  }
+
+
+
+
+  const login = (e) => {
+    e.preventDefault()
+
+    if (
+      loginFieldsAreValid(username, password)
+    ) {
+      displayInfoToast('Please wait...')
+      const dataForApiRequest = {
+        username: username,
+        password: password,
+      }
+
+      axios.post(
+        'auth/login/',
+        dataForApiRequest,
+      )
+        .then(function ({ data, status }) {
+          displaySuccessToast("Logged in successfully");
+          setToken(data.token)
+          router.push('/');    
+          router.reload()
+    
+        })
+        .catch(function (err) {
+          displayErrorToast('Enter Valid Credentials');
+        })
+    }
   }
 
   return (
@@ -19,6 +79,7 @@ export default function RegisterForm() {
             name='inputUsername'
             id='inputUsername'
             placeholder='Username'
+            onChange={(e) => setUsername(e.target.value)}
           />
 
           <input
@@ -26,18 +87,21 @@ export default function RegisterForm() {
             className='block border border-grey-light w-full p-3 rounded mb-4'
             name='inputPassword'
             id='inputPassword'
+            onChange={(e) => setPassword(e.target.value)}
             placeholder='Password'
           />
 
           <button
             type='submit'
             className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1'
-            onClick={login}
+            onClick={login} 
           >
             Login
           </button>
+
         </div>
       </div>
+
     </div>
   )
 }
