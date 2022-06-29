@@ -9,8 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const BASE_URL = "todo-app-csoc.herokuapp.com/" ;
 
 export default function RegisterForm() {
-  const login = () => {
-      const router = useRouter();
+  const router = useRouter();
   const { setToken } = useAuth();
 
   const [loginData, setLoginData] = React.useState({
@@ -36,7 +35,7 @@ export default function RegisterForm() {
       username: loginData.inputUsername,
       password: loginData.inputPassword
     }
-    if(username==="" || password===""){
+    if(userData.username==="" || userData.password===""){
       toast.warn("Enter username or password",{position: "top-center"});
       return;
     }
@@ -102,4 +101,4 @@ export default function RegisterForm() {
        </>
   )
 }
-}
+
