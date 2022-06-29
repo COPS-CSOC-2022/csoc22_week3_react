@@ -51,18 +51,6 @@ export default function Home() {
         </ul>
       </center>
     </div>
-    <ToastContainer
-      position="bottom-right"
-      theme="dark"
-      autoClose={2000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-       />
     </>
   )
 }
