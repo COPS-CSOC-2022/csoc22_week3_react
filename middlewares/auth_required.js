@@ -8,7 +8,7 @@ export default function authRequired(){
     const router = useRouter()
     const { token } = useAuth()
     useEffect(()=>{
-        if(!token){
+        if(token===undefined){
             router.push('/login')
         }
     },[token])
