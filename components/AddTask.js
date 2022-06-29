@@ -5,7 +5,7 @@ import { API_URL } from "../utils/constants"
 
 export default function addTask() {
   const [Task,settheTask]=useState("")
-  const {Token,token}=useAuth("")
+  const {token}=useAuth()
   const addTask = () => {
     
     if(Task.length===0)
@@ -20,7 +20,7 @@ export default function addTask() {
         method : 'get',
       
       }).then((res)=>{
-        const {data,status}=res
+        const {data}=res
         const apiData = {id : data.length, title : Task}
         axios({
           headers : {Authorization : "Token "+token},
