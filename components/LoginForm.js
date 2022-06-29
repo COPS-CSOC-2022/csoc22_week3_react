@@ -1,12 +1,84 @@
+import React, { useEffect, useState } from 'react'
+import axios from '../utils/axios'
+import { useAuth } from '../context/auth'
+import { useRouter } from 'next/router'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { no_auth_required } from '../middlewares/no_auth_required';
+//import { useNavigate } from 'react-router-dom';
+
+
 export default function RegisterForm() {
-  const login = () => {
+  
     /***
      * @todo Complete this function.
      * @todo 1. Write code for form validation.
      * @todo 2. Fetch the auth token from backend and login the user.
      * @todo 3. Set the token in the context (See context/auth.js)
      */
-  }
+    no_auth_required();
+     const { setToken } = useAuth()
+     const router = useRouter()
+   
+     
+     const [password, setPassword] = useState('')
+     const [username, setUsername] = useState('')
+     
+     const registerFieldsAreValid = (
+       username,
+       password
+     ) => {
+       if (
+        username === '' ||
+        password === ''
+       ) {
+         console.log('Please fill all the fields correctly.')
+         toast.error('Please fill all the fields correctly.')
+         return false
+       }
+       
+       return true
+     }
+
+
+     const login = (e) => {
+    
+      e.preventDefault()
+      if (
+        registerFieldsAreValid(username, password)
+      ){
+        console.log('Please wait...')
+        toast.info('Please Wait...')
+        const dataForApiRequest = {
+          
+          username: username,
+          password: password,
+        }
+
+        axios.post(
+          'auth/login/',
+          dataForApiRequest,
+        )
+        .then(function ({ data, status }) {
+          setToken(data.token)
+          console.log(data.token)
+          
+          window.location.href = '/';
+        })
+        .catch(function (err) {
+          console.log(
+            'Invalid Username or Password'
+          )
+          
+          toast.error("Invalid Username or Password")
+         
+          
+        })
+        
+
+      }
+     }
+  
 
   return (
     <div className='bg-grey-lighter min-h-screen flex flex-col'>
@@ -18,6 +90,8 @@ export default function RegisterForm() {
             className='block border border-grey-light w-full p-3 rounded mb-4'
             name='inputUsername'
             id='inputUsername'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder='Username'
           />
 
@@ -26,6 +100,8 @@ export default function RegisterForm() {
             className='block border border-grey-light w-full p-3 rounded mb-4'
             name='inputPassword'
             id='inputPassword'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder='Password'
           />
 
@@ -38,6 +114,18 @@ export default function RegisterForm() {
           </button>
         </div>
       </div>
+      <ToastContainer
+      position="bottom-right"
+      theme="light"
+      autoClose={1000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+       />
     </div>
   )
 }

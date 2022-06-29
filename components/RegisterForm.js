@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { no_auth_required } from '../middlewares/no_auth_required';
+
+
 
 export default function Register() {
+  
+  no_auth_required();
   const { setToken } = useAuth()
   const router = useRouter()
 
@@ -12,7 +19,7 @@ export default function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
-
+  
   const registerFieldsAreValid = (
     firstName,
     lastName,
@@ -28,23 +35,27 @@ export default function Register() {
       password === ''
     ) {
       console.log('Please fill all the fields correctly.')
+      toast.error('Please fill all the fields correctly.')
       return false
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       console.log('Please enter a valid email address.')
+      toast.error('Please enter a valid email address.')
       return false
     }
     return true
   }
 
   const register = (e) => {
+    
     e.preventDefault()
 
     if (
       registerFieldsAreValid(firstName, lastName, email, username, password)
     ) {
       console.log('Please wait...')
-
+      toast.info('Please Wait...')
+      
       const dataForApiRequest = {
         name: firstName + ' ' + lastName,
         email: email,
@@ -58,16 +69,21 @@ export default function Register() {
       )
         .then(function ({ data, status }) {
           setToken(data.token)
-          router.push('/')
+          window.location.href='/'
         })
         .catch(function (err) {
           console.log(
             'An account using same email or username is already created'
           )
+          
+          toast.error("An account using same email or username is already created")
+         
+          
         })
     }
   }
-
+  
+  
   return (
     <div className='bg-grey-lighter min-h-screen flex flex-col'>
       <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
@@ -126,11 +142,29 @@ export default function Register() {
             type='submit'
             className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1'
             onClick={register}
+            
           >
             Register
           </button>
+          
         </div>
       </div>
+      <ToastContainer
+      position="bottom-right"
+      theme="light"
+      autoClose={1000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+       />
+       
     </div>
+    
   )
+  
 }
+

@@ -14,12 +14,26 @@ export const AuthProvider = ({ children }) => {
 
   const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
   const deleteToken = () => removeCookies('token')
+  // const [toke,logot]=useState(token)
+  // useEffect(()=>{
+    
+  //   router.push('./login')
+  // },[toke])
   const logout = () => {
+    
     deleteToken()
-    router.push('/login')
+    
+    
+
+    //router.push('./login')
+     router.reload()
+    
   }
 
+  
   useEffect(() => {
+    
+    
     if (token) {
       axios
         .get('auth/profile/', {
