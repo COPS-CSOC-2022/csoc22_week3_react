@@ -51,6 +51,7 @@ export default function Home() {
         </ul>
       </center>
     </div>
+    
     </>
   )
 }
