@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  background-color: #fae8d5;
+}
+.navbar{
+  background-color: #e34232 ;
+}
+.available-task{
+  background-color: #e34232 ;
+}
+.login{
+  border: 2px white solid;
+  border-radius: 10%;;
+  padding: 7px 10px;
+
+}
+.register{
+  border: 2px white solid;
+  border-radius: 10%;;
+  padding: 7px 10px;
+
+}
 .hideme {
   display: none !important;
 }

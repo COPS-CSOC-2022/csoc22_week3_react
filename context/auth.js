@@ -2,7 +2,7 @@ import { useEffect, useState, useContext, createContext } from 'react'
 import { useCookies } from 'react-cookie'
 import axios from '../utils/axios'
 import { useRouter } from 'next/router'
-
+import { toast, ToastContainer } from 'react-toastify'
 const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
@@ -11,20 +11,33 @@ export const AuthProvider = ({ children }) => {
   const [avatarImage, setAvatarImage] = useState('#')
   const [cookies, setCookies, removeCookies] = useCookies(['auth'])
   const token = cookies.token
-
+  const [token_1,setToken_1] = useState(cookies.token);
   const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
   const deleteToken = () => removeCookies('token')
   const logout = () => {
+    toast.success('Logged Out Successfully', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
+    localStorage.removeItem('token')
+    setToken_1(undefined)
     deleteToken()
+    setAvatarImage('#')
+    setProfileName('')
     router.push('/login')
   }
 
   useEffect(() => {
-    if (token) {
+    if (token_1) {
       axios
         .get('auth/profile/', {
           headers: {
-            Authorization: 'Token ' + token,
+            Authorization: 'Token ' + localStorage.getItem('token'),
           },
         })
         .then((response) => {
@@ -39,13 +52,15 @@ export const AuthProvider = ({ children }) => {
           console.log('Some error occurred')
         })
     }
-  }, [setAvatarImage, setProfileName, token])
+  }, [setAvatarImage, setProfileName,token_1])
 
   return (
     <AuthContext.Provider
       value={{
         token,
+        token_1,
         setToken,
+        setToken_1,
         deleteToken,
         profileName,
         setProfileName,
@@ -55,6 +70,7 @@ export const AuthProvider = ({ children }) => {
       }}
     >
       {children}
+      <ToastContainer/>
     </AuthContext.Provider>
   )
 }
