@@ -24,9 +24,9 @@ export default function Nav() {
         <ul className='flex items-center justify-between space-x-4'>
           <li>
             <Link href="/" passHref={true}>
-              <a>
+              
                 <h1 className='neonText'>Todo</h1>
-              </a>
+              
             </Link>
           </li>
         </ul>
