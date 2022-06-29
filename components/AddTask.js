@@ -22,6 +22,8 @@ export default function addTask() {
       }).then((res)=>{
         const {data}=res
         const apiData = {id : data.length, title : Task}
+        console.log(Task)
+        alert('Task added!')
         axios({
           headers : {Authorization : "Token "+token},
           url : API_URL + 'todo/create/',

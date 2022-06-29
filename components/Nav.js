@@ -4,10 +4,6 @@ import Link from 'next/link'
 import { useAuth } from '../context/auth'
 import { useState } from 'react'
 
-/**
- *
- * @todo Condtionally render login/register and Profile name in NavBar
- */
 
 export default function Nav() {
   const { logout, profileName, avatarImage } = useAuth()

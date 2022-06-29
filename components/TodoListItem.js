@@ -21,6 +21,7 @@ export default function TodoListItem(props) {
       url : API_URL + 'todo/'+flag + '/',
       method : 'delete',
     })
+    alert('Task Deleted!')
   }
 
   const updateTask = (id) => {
@@ -30,7 +31,6 @@ export default function TodoListItem(props) {
         url: 'todo/'+id + '/',
         method: 'patch',
         data : {title:editstring}
-
       })
     
   }
