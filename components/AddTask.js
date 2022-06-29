@@ -1,17 +1,54 @@
+import TodoListItem from '../components/TodoListItem'
+import { useEffect, useState } from 'react'
+import axios from '../utils/axios'
+import { useAuth } from '../context/auth'
+import { API_URL }from '../utils/constants'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+export function displaySuccessToast(message) {
+  toast.success(message);
+}
+export function displayWarnToast(message) {
+  toast.warn(message);
+}
+
+export function displayErrorToast(message) {
+  toast.error(message);
+}
 export default function AddTask() {
   const addTask = () => {
-    /**
-     * @todo Complete this function.
-     * @todo 1. Send the request to add the task to the backend server.
-     * @todo 2. Add the task in the dom.
-     */
+    if (task===""){
+      displayWarnToast("Task is empty!!");
+    }
+    else{
+      axios({
+          headers: {
+            Authorization: 'Token ' + token
+          },
+          url: API_URL + "todo/create/",
+          method: 'POST',
+          data: {
+            title: task
+          },
+      }).then(res => {
+          setTask("");
+          props.displayTasks();
+          console.log(res);
+          displaySuccessToast("Task added!!!");
+      }).catch(function (err) {
+          displayErrorToast("Task couldn't be added");
+      })
+    }
   }
   return (
     <div className='flex items-center max-w-sm mt-24'>
       <input
+        onChange={(e)=>setTask(e.target.value)}
         type='text'
         className='todo-add-task-input px-4 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full'
         placeholder='Enter Task'
+        value={task}
       />
       <button
         type='button'
