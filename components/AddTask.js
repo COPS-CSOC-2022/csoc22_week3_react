@@ -20,7 +20,7 @@ export default function AddTask() {
   const {token} = useAuth();
   const [task, setTask] = useState("")
   const addTask = () => {
-    if (task===""){
+    if (task==""){
       displayWarnToast("Task is empty!!");
     }
     else{
@@ -34,12 +34,11 @@ export default function AddTask() {
             title: task
           },
       }).then(res => {
+          displaySuccessToast("Task added!!!");
           setTask("");
           props.displayTasks();
-          console.log(res);
-          displaySuccessToast("Task added!!!");
+          
       }).catch(function (err) {
-          displayErrorToast("Task couldn't be added");
       })
     }
   }
