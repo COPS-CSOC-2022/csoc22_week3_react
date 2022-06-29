@@ -16,8 +16,11 @@ export const AuthProvider = ({ children }) => {
   const deleteToken = () => removeCookies('token')
   const logout = () => {
     deleteToken()
-    router.push('/login')
+    window.location.reload()
   }
+
+  //Creating a check var
+  const [check, setCheck] = useState(false)
 
   useEffect(() => {
     if (token) {
@@ -52,6 +55,8 @@ export const AuthProvider = ({ children }) => {
         avatarImage,
         setAvatarImage,
         logout,
+        check,
+        setCheck,
       }}
     >
       {children}
