@@ -21,4 +21,43 @@
 
 .todo-task {
   max-width: 260px;
+  
+}
+
+.neonText {
+  color: #fff;
+  text-shadow:
+    0 0 7px rgb(26, 239, 40),
+    0 0 10px rgb(108, 213, 32),
+    0 0 21px rgb(214, 192, 27),
+    0 0 42px #bc13fe,
+    0 0 82px #bc13fe,
+    0 0 92px #bc13fe,
+    0 0 102px #bc13fe,
+    0 0 151px #bc13fe;
+      animation: flicker 1.5s infinite alternate;
+  color: rgb(97, 235, 245);
+}
+@keyframes flicker {
+    
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+
+      text-shadow:
+      0 0 4px rgb(224, 44, 116),
+      0 0 11px rgb(236, 58, 189),
+      0 0 19px rgb(215, 68, 159),
+      0 0 40px rgb(229, 171, 79),
+      0 0 80px rgb(175, 210, 47),
+      0 0 90px rgb(60, 160, 222),
+      0 0 100px rgb(87, 224, 29),
+      0 0 150px #0fa;
+  
+  }
+  
+  20%, 24%, 55% {        
+      text-shadow: none;
+  }    
+}
+#alltodos :hover{
+  background-color: rgb(58, 217, 245);
 }
