@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register() {
+  
   const { setToken } = useAuth()
   const router = useRouter()
 
@@ -27,11 +30,11 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
+      toast.warning('Please fill all the fields correctly.',{position: toast.POSITION.TOP_CENTER})
       return false
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log('Please enter a valid email address.')
+      toast.error('Please enter a valid email address.',{position: toast.POSITION.TOP_CENTER})
       return false
     }
     return true
@@ -43,7 +46,7 @@ export default function Register() {
     if (
       registerFieldsAreValid(firstName, lastName, email, username, password)
     ) {
-      console.log('Please wait...')
+      toast.info('Please wait...',{position: toast.POSITION.TOP_CENTER})
 
       const dataForApiRequest = {
         name: firstName + ' ' + lastName,
@@ -58,12 +61,10 @@ export default function Register() {
       )
         .then(function ({ data, status }) {
           setToken(data.token)
-          router.push('/')
+          router.push("REGISTER","/")
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          toast.error('An account using same email or username is already created',{position: toast.POSITION.TOP_CENTER})
         })
     }
   }
@@ -71,8 +72,8 @@ export default function Register() {
   return (
     <div className='bg-grey-lighter min-h-screen flex flex-col'>
       <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
-        <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
-          <h1 className='mb-8 text-3xl text-center'>Register</h1>
+        <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full' id='box'>
+          <h1 className='mb-8 text-3xl text-center'><strong><u>Register</u></strong></h1>
           <input
             type='text'
             className='block border border-grey-light w-full p-3 rounded mb-4'
@@ -124,9 +125,9 @@ export default function Register() {
 
           <button
             type='submit'
+            id='registerButton'
             className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1'
-            onClick={register}
-          >
+            onClick={register}>
             Register
           </button>
         </div>
