@@ -69,7 +69,9 @@ export default function TodoListItem({todo,getTasks}) {
   }
   return (
     <>
-    { 
+    
+    { !todo.length && (<div className=" text-gray-800 py-2 text-lg">No Task Found !!</div>)}
+    {  
       todo.map((task)=>
       (<li className='border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2' key={task.id}>
         <input

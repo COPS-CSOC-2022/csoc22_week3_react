@@ -26,8 +26,7 @@ export default function AddTask({getTasks}) {
       if (
         registerFieldsAreValid(Task)
       ) {
-        toast.info('Please  Wait...',{position: 'bottom-right'}) 
-        const dataForApiRequest = {
+          const dataForApiRequest = {
           title: Task
         }
   
@@ -51,7 +50,6 @@ export default function AddTask({getTasks}) {
   
   return (
     <div className='flex items-center max-w-sm mt-24'>
-      
       <input
         type='text'
         className='todo-add-task-input px-4 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full'
