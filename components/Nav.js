@@ -15,7 +15,7 @@ export default function Nav() {
       <ul className='flex items-center justify-between p-5'>
         <ul className='flex items-center justify-between space-x-4'>
           <li>
-            <Link href={token ? "/" : "/login"} passHref={true}>
+            <Link href="/" passHref={true}>
               <a>
                 <h1 className='text-white font-bold text-xl'>Todo</h1>
               </a>
@@ -34,7 +34,7 @@ export default function Nav() {
           <div id='details' className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
               <img src={avatarImage} />
-              <span className='pl-1 pr-1'>{profileName}</span>
+              <span className='ml-1 mr-1'>{profileName}</span>
               <svg
                 className='fill-current h-4 w-4'
                 xmlns='http://www.w3.org/2000/svg'

@@ -12,7 +12,8 @@ export default function Home() {
   
   useEffect(()=>{
     getTasks();
-  },[])
+  },[]);
+
 
   function getTasks() {
       /***
@@ -34,7 +35,10 @@ export default function Home() {
              .catch(function (err) {
               console.log(err);
       })
-   
+      
+
+
+
 }
 return (
     <div >
@@ -48,7 +52,7 @@ return (
           </span>
           {tasks.map((todo)=>{
             return(
-             <div className='tasks rounded tasks'>
+             <div className='tasks rounded tasks' key={todo.id}>
                <TodoListItem task={todo} getTasks={getTasks}/>
              </div>
             )
