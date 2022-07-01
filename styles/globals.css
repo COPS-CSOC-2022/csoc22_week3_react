@@ -5,7 +5,6 @@
 .hideme {
   display: none !important;
 }
-
 .todo-edit-task-input,
 .todo-add-task-input {
   border-top-right-radius: 0px;
@@ -21,4 +20,55 @@
 
 .todo-task {
   max-width: 260px;
+}
+.switch {
+  width: 100vw;
+  height: 25px;
+  margin-top: 10px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.switch label{
+  margin-left: 5px;
+}
+
+#dark {
+  background-color: #37474F;
+}
+
+#dark #nav {
+  background-color: black;
+}
+
+#dark .login-container {
+  background-color: rgba(0, 0, 0, 0.385);
+  color: white;
+}
+
+#dark #input-btn , #dark .login-btn{
+  color: black;
+  background-color: #00C851;
+  
+}
+#dark .edit {
+  background-color :#ffbb33;
+}
+
+#dark .delete {
+  background-color: #ff4444 ;
+}
+
+#dark .done-btn{
+  background-color: gray;
+  color: white;
+}
+
+.App {
+  width: 100%;
+  min-height: 100vh;
+  margin-bottom: -10px;
+  overflow-x: hidden;
 }

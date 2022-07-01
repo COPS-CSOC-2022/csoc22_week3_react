@@ -8,10 +8,10 @@ import { useAuth } from '../context/auth'
  */
 
 export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
-
+  
+  const { logout, profileName, avatarImage ,token} = useAuth();
   return (
-    <nav className='bg-blue-600'>
+    <nav className='bg-blue-600' id='nav'>
       <ul className='flex items-center justify-between p-5'>
         <ul className='flex items-center justify-between space-x-4'>
           <li>
@@ -22,7 +22,7 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
-        <ul className='flex'>
+        { !token ? <ul className='flex'>
           <li className='text-white mr-2'>
             <Link href='/login'>Login</Link>
           </li>
@@ -30,11 +30,11 @@ export default function Nav() {
             <Link href='/register'>Register</Link>
           </li>
         </ul>
-        <div className='inline-block relative w-28'>
-          <div className='group inline-block relative'>
+          : <div className='inline-block relative w-28'>
+          <div id='details' className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
               <img src={avatarImage} />
-              <span className='mr-1'>{profileName}</span>
+              <span className='ml-1 mr-1'>{profileName}</span>
               <svg
                 className='fill-current h-4 w-4'
                 xmlns='http://www.w3.org/2000/svg'
@@ -49,13 +49,13 @@ export default function Nav() {
                   className='rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap'
                   href='#'
                   onClick={logout}
-                >
-                  Logout
+                >Logout
                 </a>
               </li>
             </ul>
           </div>
         </div>
+        }
       </ul>
     </nav>
   )

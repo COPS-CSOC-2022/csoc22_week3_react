@@ -2,6 +2,10 @@ import { useEffect, useState, useContext, createContext } from 'react'
 import { useCookies } from 'react-cookie'
 import axios from '../utils/axios'
 import { useRouter } from 'next/router'
+import { API_URL } from '../utils/constants'
+import { success } from '../pages/_app'
+
+
 
 const AuthContext = createContext({})
 
@@ -10,30 +14,33 @@ export const AuthProvider = ({ children }) => {
   const [profileName, setProfileName] = useState('')
   const [avatarImage, setAvatarImage] = useState('#')
   const [cookies, setCookies, removeCookies] = useCookies(['auth'])
-  const token = cookies.token
-
-  const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
-  const deleteToken = () => removeCookies('token')
+  const [token , updateToken] = useState(cookies.token);
+  
+  const setToken = (newToken) =>{ setCookies('token', newToken, { path: '/' }) ; updateToken(newToken)}
+  const deleteToken = () => {removeCookies('token') ; updateToken(undefined) ; }
+  
   const logout = () => {
-    deleteToken()
-    router.push('/login')
+    deleteToken();
+    router.push('/login');
+    success('Logged out successfully .')
   }
-
+  
   useEffect(() => {
     if (token) {
-      axios
-        .get('auth/profile/', {
-          headers: {
-            Authorization: 'Token ' + token,
-          },
-        })
+      axios({
+        headers: {
+            Authorization: "Token " + token,
+        },
+        url: API_URL + 'auth/profile/',
+        method: 'get',
+          })
         .then((response) => {
           setAvatarImage(
             'https://ui-avatars.com/api/?name=' +
               response.data.name +
               '&background=fff&size=33&color=007bff'
           )
-          setProfileName(response.data.name)
+          setProfileName(response.data.name.split(' ')[0]);
         })
         .catch((error) => {
           console.log('Some error occurred')
