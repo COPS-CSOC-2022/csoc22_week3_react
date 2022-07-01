@@ -4,19 +4,20 @@
 
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { useAuth } from "../context/auth";
 
-export function authRequired(token){
-    
-    const router = useRouter()
-    useEffect(()=>{
-        if(!token){
-            router.push('/login');
-        }
-    },[token]);
+function authRequired (){
+    const { token }=useAuth();
+    const router=useRouter();
+   useEffect(() => {
+    if(!token)
+    {
+        router.replace('/login');
+
+    }
+   },[token]);
 }
-
-
-
+export default authRequired;
 
 
 

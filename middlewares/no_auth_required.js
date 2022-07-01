@@ -1,16 +1,19 @@
 /***
  * @todo Redirect the user to main page if token is present.
  */
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { useAuth } from "../context/auth";
 
-export function noAuthRequired(token){
-    
-    const router = useRouter()
-   
-    useEffect(()=>{
-        if(token)
-         router.push('/');
+function noAuthRequired(){
+    const { token }=useAuth();
+    const router=useRouter();
+   useEffect(() => {
+    if(token)
+    {
+        router.replace('/');
+
+    }
     },[token])
 }
-
+export default noAuthRequired;

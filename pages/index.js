@@ -4,12 +4,17 @@ import { useEffect, useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { API_URL } from '../utils/constants'
+import authRequired from '../middlewares/auth_required'
+import noAuthRequired from '../middlewares/no_auth_required'
 
 export default function Home() {
   
   const { token } = useAuth()
   const [tasks, setTasks] = useState([])
   
+  authRequired();
+  noAuthRequired();
+
   useEffect(()=>{
     getTasks();
   },[]);
@@ -34,11 +39,8 @@ export default function Home() {
             })
              .catch(function (err) {
               console.log(err);
-      })
-      
-
-
-
+          })
+        
 }
 return (
     <div >

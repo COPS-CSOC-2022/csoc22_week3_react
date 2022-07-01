@@ -4,8 +4,7 @@ import axios from '../utils/axios'
 import { useRouter } from 'next/router'
 import { API_URL } from '../utils/constants'
 import { success } from '../pages/_app'
-import { authRequired } from '../middlewares/auth_required'
-import { noAuthRequired } from '../middlewares/no_auth_required'
+
 
 
 const AuthContext = createContext({})
@@ -17,21 +16,15 @@ export const AuthProvider = ({ children }) => {
   const [cookies, setCookies, removeCookies] = useCookies(['auth'])
   const [token , updateToken] = useState(cookies.token);
   
-  authRequired(token);
-  noAuthRequired(token);
-
-  const setToken = (newToken) =>{ setCookies('token', newToken, { path: '/' }) ; updateToken(newToken); }
-  const deleteToken = () => removeCookies('token')
+  const setToken = (newToken) =>{ setCookies('token', newToken, { path: '/' }) ; updateToken(newToken)}
+  const deleteToken = () => {removeCookies('token') ; updateToken(undefined) ; }
   
   const logout = () => {
     deleteToken();
-    updateToken(undefined);
-    router.replace('/login')
+    router.push('/login');
     success('Logged out successfully .')
   }
-
- 
-
+  
   useEffect(() => {
     if (token) {
       axios({

@@ -50,9 +50,7 @@ export default function RegisterForm() {
           .then(function ({ data, status }) {
             success('Logged in .');
             setToken(data.token);
-            setTimeout(()=>{
-              router.replace('/');
-            },500);
+            router.push('/');
           })
           .catch(function (err) {
             error('Invalid password or email-id .')
