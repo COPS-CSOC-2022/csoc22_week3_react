@@ -2,16 +2,15 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { useAuth } from '../context/auth'
-/**
- *
- * @todo Condtionally render login/register and Profile name in NavBar
- */
+import { useState, useEffect } from 'react'
 
 export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
+  const { logout, profileName, avatarImage, token } = useAuth()
+  const [ tokenValid, setTokenValid ] = useState(true)
+  useEffect(()=>{(token)?setTokenValid(true):setTokenValid(false)},[token])
 
   return (
-    <nav className='bg-blue-600'>
+    <nav className='navBar'>
       <ul className='flex items-center justify-between p-5'>
         <ul className='flex items-center justify-between space-x-4'>
           <li>
@@ -22,6 +21,8 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
+        {!tokenValid &&
+        <div>
         <ul className='flex'>
           <li className='text-white mr-2'>
             <Link href='/login'>Login</Link>
@@ -30,9 +31,11 @@ export default function Nav() {
             <Link href='/register'>Register</Link>
           </li>
         </ul>
-        <div className='inline-block relative w-28'>
+        </div>}
+        <div className='inline-block relative w-50'>
           <div className='group inline-block relative'>
-            <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
+          {tokenValid && <>
+              <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
               <img src={avatarImage} />
               <span className='mr-1'>{profileName}</span>
               <svg
@@ -48,12 +51,12 @@ export default function Nav() {
                 <a
                   className='rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap'
                   href='#'
-                  onClick={logout}
-                >
+                  onClick={logout}>
                   Logout
                 </a>
               </li>
             </ul>
+            </>}
           </div>
         </div>
       </ul>
