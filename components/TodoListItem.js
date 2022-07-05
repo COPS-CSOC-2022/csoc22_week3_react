@@ -1,27 +1,36 @@
 /* eslint-disable @next/next/no-img-element */
 
-export default function TodoListItem() {
-  const editTask = (id) => {
-    /**
-     * @todo Complete this function.
-     * @todo 1. Update the dom accordingly
-     */
+import { useState } from "react"
+import { useAuth } from "../context/auth"
+import axios from "../utils/axios"
+
+export default function TodoListItem({title, id, index, tasks, setTasks}) {
+  const {token} = useAuth()
+  const [editing, setEditing] = useState(false)
+  const [_title, setTitle] = useState(title)
+
+  const editTask = () => {
+    setEditing(true)
   }
 
-  const deleteTask = (id) => {
-    /**
-     * @todo Complete this function.
-     * @todo 1. Send the request to delete the task to the backend server.
-     * @todo 2. Remove the task from the dom.
-     */
+  const deleteTask = () => {
+    axios({
+      method: 'DELETE',
+      url: `todo/${id}/`,
+      headers: {Authorization: `token ${token}`}
+    })
+    .then(setTasks(tasks.filter(task => task.id !== id)))
   }
 
-  const updateTask = (id) => {
-    /**
-     * @todo Complete this function.
-     * @todo 1. Send the request to update the task to the backend server.
-     * @todo 2. Update the task in the dom.
-     */
+  const updateTask = () => {
+    axios({
+      method: 'PUT',
+      url: `todo/${id}/`,
+      headers: {Authorization: `token ${token}`},
+      data: {title: _title}
+    })
+    .then(setTasks([...tasks.slice(0, index), {title: title, id: id}, ...tasks.slice(index+1)]))
+    .then(setEditing(false))
   }
 
   return (
@@ -30,26 +39,28 @@ export default function TodoListItem() {
         <input
           id='input-button-1'
           type='text'
-          className='hideme appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input'
+          className={`${editing ? '' :'hideme'} appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input`}
           placeholder='Edit The Task'
+          onChange={(e) => setTitle(e.target.value)}
+          value={_title}
         />
-        <div id='done-button-1' className='hideme'>
+        <div id='done-button-1' className={editing ? '': 'hideme'}>
           <button
             className='bg-transparent hover:bg-gray-500 text-gray-700 text-sm  hover:text-white py-2 px-3 border border-gray-500 hover:border-transparent rounded todo-update-task'
             type='button'
-            onClick={updateTask(1)}
+            onClick={updateTask}
           >
             Done
           </button>
         </div>
-        <div id='task-1' className='todo-task  text-gray-600'>
-          Sample Task 1
+        <div id='task-1' className={`${editing ? 'hideme' : ''} todo-task  text-gray-600`}>
+          {_title}
         </div>
-        <span id='task-actions-1' className=''>
+        <span id='task-actions-1' className={editing ? 'hideme': ''}>
           <button
             style={{ marginRight: '5px' }}
             type='button'
-            onClick={editTask(1)}
+            onClick={editTask}
             className='bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 py-2'
           >
             <img
@@ -62,7 +73,7 @@ export default function TodoListItem() {
           <button
             type='button'
             className='bg-transparent hover:bg-red-500 hover:text-white border border-red-500 hover:border-transparent rounded px-2 py-2'
-            onClick={deleteTask(1)}
+            onClick={deleteTask}
           >
             <img
               src='https://res.cloudinary.com/nishantwrp/image/upload/v1587486661/CSOC/delete.svg'

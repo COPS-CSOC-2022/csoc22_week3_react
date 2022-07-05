@@ -1,3 +1,3 @@
-/***
- * @todo Redirect the user to login page if token is not present.
- */
+export const auth_required = (token, router) => {
+    if (!token) router.push('/login')
+}
