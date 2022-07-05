@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useAuth } from "../context/auth"
 import axios from "../utils/axios"
 
-export default function TodoListItem({title, id, index, tasks, setTasks}) {
+export default function TodoListItem({title, id, index, actualIndex, tasks, allTasks, setTasks, setAllTasks}) {
   const {token} = useAuth()
   const [editing, setEditing] = useState(false)
   const [_title, setTitle] = useState(title)
@@ -19,7 +19,10 @@ export default function TodoListItem({title, id, index, tasks, setTasks}) {
       url: `todo/${id}/`,
       headers: {Authorization: `token ${token}`}
     })
-    .then(setTasks(tasks.filter(task => task.id !== id)))
+    .then(() => {
+      setTasks(tasks.filter(task => task.id !== id))
+      setAllTasks(allTasks.filter(task => task.id !== id))
+    })
   }
 
   const updateTask = () => {
@@ -29,8 +32,12 @@ export default function TodoListItem({title, id, index, tasks, setTasks}) {
       headers: {Authorization: `token ${token}`},
       data: {title: _title}
     })
-    .then(setTasks([...tasks.slice(0, index), {title: title, id: id}, ...tasks.slice(index+1)]))
-    .then(setEditing(false))
+    .then(() => {
+      console.log(index, actualIndex, id, _title, allTasks)
+      setTasks([...tasks.slice(0, index), {title: _title, id: id}, ...tasks.slice(index+1)])
+      setAllTasks([...allTasks.slice(0, actualIndex), {title: _title, id: id}, ...allTasks.slice(actualIndex+1)])
+      setEditing(false)
+    })
   }
 
   return (
