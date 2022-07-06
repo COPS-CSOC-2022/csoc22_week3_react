@@ -1,12 +1,13 @@
 import TodoListItem from '../components/TodoListItem'
 import AddTask from '../components/AddTask'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { auth_required } from '../middlewares/auth_required'
 import { useRouter } from 'next/router'
-import { data } from 'autoprefixer'
+// import { data } from 'autoprefixer'
 import Search from '../components/Search'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 export default function Home() {
   const route = useRouter()
@@ -46,22 +47,26 @@ export default function Home() {
           query={query}
           />
         <ul className='flex-col mt-9 max-w-sm mb-3 '>
-          <span className='inline-block bg-blue-600 py-1 mb-2 px-9 text-sm text-white font-bold rounded-full '>
+          <span className='inline-block bg-blue-600 py-1 mb-2 px-9 text-sm text-white font-bold rounded-full'>
             Available Tasks
           </span>
+          <TransitionGroup>
           {tasks.map(({title, id}, index) =>
-            <TodoListItem
-              title={title}
-              id={id}
-              key={id}
-              index={index}
-              actualIndex={allTasks.findIndex((task) => task.id === id)}
-              tasks={tasks}
-              allTasks={allTasks}
-              setTasks={setTasks}
-              setAllTasks={setAllTasks}
-            />
+            <CSSTransition key={id} timeout={500} classNames="item">
+              <TodoListItem
+                title={title}
+                id={id}
+                key={id}
+                index={index}
+                actualIndex={allTasks.findIndex((task) => task.id === id)}
+                tasks={tasks}
+                allTasks={allTasks}
+                setTasks={setTasks}
+                setAllTasks={setAllTasks}
+              />
+            </CSSTransition>
           )}
+          </TransitionGroup>
         </ul>
       </center>
     </div>

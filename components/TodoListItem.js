@@ -33,7 +33,6 @@ export default function TodoListItem({title, id, index, actualIndex, tasks, allT
       data: {title: _title}
     })
     .then(() => {
-      console.log(index, actualIndex, id, _title, allTasks)
       setTasks([...tasks.slice(0, index), {title: _title, id: id}, ...tasks.slice(index+1)])
       setAllTasks([...allTasks.slice(0, actualIndex), {title: _title, id: id}, ...allTasks.slice(actualIndex+1)])
       setEditing(false)
