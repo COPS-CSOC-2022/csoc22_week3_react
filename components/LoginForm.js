@@ -1,12 +1,61 @@
-export default function RegisterForm() {
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useAuth } from "../context/auth";
+import axiosInstance from "../utils/axios";
+import {toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
+
+export default function LoginForm() {
+  const auth = useAuth()
+  const route = useRouter()
+
   const login = () => {
-    /***
-     * @todo Complete this function.
-     * @todo 1. Write code for form validation.
-     * @todo 2. Fetch the auth token from backend and login the user.
-     * @todo 3. Set the token in the context (See context/auth.js)
-     */
+    if (username === '' || password === '') {
+      toast.error('Username or Password cannot be empty', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
+      return
+    }
+
+    axiosInstance.post('auth/login/',{username: username, password: password})
+    .then(ret => ret.data.token)
+    .then((token) => {
+      auth.setToken(token)
+      toast.success('Login successful', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
+      route.push('/')
+    })
+    .catch(() => {
+      toast.error('Invalid username or password', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
+    })
   }
+  
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   return (
     <div className='bg-grey-lighter min-h-screen flex flex-col'>
@@ -19,6 +68,7 @@ export default function RegisterForm() {
             name='inputUsername'
             id='inputUsername'
             placeholder='Username'
+            onChange={event => setUsername(event.target.value)}
           />
 
           <input
@@ -27,6 +77,7 @@ export default function RegisterForm() {
             name='inputPassword'
             id='inputPassword'
             placeholder='Password'
+            onChange={event => setPassword(event.target.value)}
           />
 
           <button

@@ -1,3 +1,3 @@
-/***
- * @todo Redirect the user to main page if token is present.
- */
+export const no_auth_required = (token, router) => {
+    if (token) router.push('/')
+}
