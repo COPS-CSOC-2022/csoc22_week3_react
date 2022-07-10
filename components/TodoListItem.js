@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { useAuth } from "../context/auth"
 import axios from "../utils/axios"
+import {toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function TodoListItem({title, id, index, actualIndex, tasks, allTasks, setTasks, setAllTasks}) {
   const {token} = useAuth()
@@ -20,12 +22,47 @@ export default function TodoListItem({title, id, index, actualIndex, tasks, allT
       headers: {Authorization: `token ${token}`}
     })
     .then(() => {
+      toast.success('Task deleted successfully', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
       setTasks(tasks.filter(task => task.id !== id))
       setAllTasks(allTasks.filter(task => task.id !== id))
+    })
+    .catch(() => {
+      toast.error('Something went wrong', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
     })
   }
 
   const updateTask = () => {
+    if (_title === '') {
+      toast.error('Task title cannot be empty', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
+      return
+    }
     axios({
       method: 'PUT',
       url: `todo/${id}/`,
@@ -33,9 +70,31 @@ export default function TodoListItem({title, id, index, actualIndex, tasks, allT
       data: {title: _title}
     })
     .then(() => {
+      toast.success('Task updated successfully', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
       setTasks([...tasks.slice(0, index), {title: _title, id: id}, ...tasks.slice(index+1)])
       setAllTasks([...allTasks.slice(0, actualIndex), {title: _title, id: id}, ...allTasks.slice(actualIndex+1)])
       setEditing(false)
+    })
+    .catch(() => {
+      toast.error('Something went wrong', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
     })
   }
 

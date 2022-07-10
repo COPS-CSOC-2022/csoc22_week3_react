@@ -5,7 +5,6 @@ import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { auth_required } from '../middlewares/auth_required'
 import { useRouter } from 'next/router'
-// import { data } from 'autoprefixer'
 import Search from '../components/Search'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 

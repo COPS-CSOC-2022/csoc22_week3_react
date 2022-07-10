@@ -1,6 +1,8 @@
 import axios from "../utils/axios"
 import { useState } from "react"
 import { useAuth } from "../context/auth"
+import {toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddTask({tasks, allTasks, setTasks, setAllTasks, query}) {
   const {token} = useAuth()
@@ -8,14 +10,58 @@ export default function AddTask({tasks, allTasks, setTasks, setAllTasks, query})
   let adding = false
   const addTask = async () => {
     if (adding) return
-    if (_title === '') return
+    if (_title === '') {
+      toast.error('Task title cannot be empty', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
+      return
+    }
     adding = true
+    toast.info('Adding task', {
+      position: "bottom-right",
+      autoClose: 500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    })
     await axios({
       method: 'POST',
       url: 'todo/create/',
       headers: {Authorization: `Token ${token}`},
       data: {title: _title}
+    }).catch( () => {
+      toast.error('Something went wrong', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return
     })
+    toast.success('Task added successfully!', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
     setTitle('')
     const newTask = await axios({
       method: 'GET',

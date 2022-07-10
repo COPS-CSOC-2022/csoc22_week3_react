@@ -2,6 +2,8 @@ import { useEffect, useState, useContext, createContext } from 'react'
 import { useCookies } from 'react-cookie'
 import axios from '../utils/axios'
 import { useRouter } from 'next/router'
+import {toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AuthContext = createContext({})
 
@@ -24,6 +26,16 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     deleteToken()
+    toast.warn('You have been logged out', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    })
     router.push('/login')
   }
 

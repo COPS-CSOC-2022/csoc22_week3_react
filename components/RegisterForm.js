@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import {toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register() {
   const { setToken } = useAuth()
@@ -27,11 +29,29 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
+      toast.error('Please fill all the fields correctly.', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
       return false
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log('Please enter a valid email address.')
+      toast.error('Please enter a valid email address.', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
       return false
     }
     return true
@@ -43,7 +63,16 @@ export default function Register() {
     if (
       registerFieldsAreValid(firstName, lastName, email, username, password)
     ) {
-      console.log('Please wait...')
+      toast.info('Please wait...', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
 
       const dataForApiRequest = {
         name: firstName + ' ' + lastName,
@@ -56,14 +85,31 @@ export default function Register() {
         'auth/register/',
         dataForApiRequest,
       )
-        .then(function ({ data, status }) {
+        .then(function ({ data }) {
           setToken(data.token)
           router.push('/')
+          toast.success('Login successful', {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          })
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          toast.warn('An account using same email or username is already created', {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          })
         })
     }
   }
