@@ -2,17 +2,17 @@ import { useEffect, useState, useContext, createContext } from 'react'
 import { useCookies } from 'react-cookie'
 import axios from '../utils/axios'
 import { useRouter } from 'next/router'
-
+import {Auth} from '../middlewares/auth_required'
 const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
   const router = useRouter()
   const [profileName, setProfileName] = useState('')
   const [avatarImage, setAvatarImage] = useState('#')
-  const [cookies, setCookies, removeCookies] = useCookies(['auth'])
+  const [cookies, setCookies, removeCookies] = useCookies(['token'])
   const token = cookies.token
 
-  const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
+  const setToken = (newToken) => {setCookies('token', newToken, { path: '/' });}
   const deleteToken = () => removeCookies('token')
   const logout = () => {
     deleteToken()
