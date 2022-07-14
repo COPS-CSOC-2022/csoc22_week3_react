@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
+import { No_Auth_req } from '../middlewares/no_auth_required'
 import { useRouter } from 'next/router'
 
 export default function Register() {
   const { setToken } = useAuth()
+  No_Auth_req();
   const router = useRouter()
 
   const [firstName, setFirstName] = useState('')

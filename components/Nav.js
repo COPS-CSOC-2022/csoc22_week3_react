@@ -2,13 +2,14 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { useAuth } from '../context/auth'
-/**
- *
- * @todo Condtionally render login/register and Profile name in NavBar
- */
+import { useState ,useEffect } from 'react'
+
 
 export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
+  const { logout, profileName, avatarImage ,token } = useAuth()
+  const [tokPresent,settokPresent] = useState(true)
+
+  useEffect(()=>{(token)?settokPresent(true):settokPresent(false)},[token])
 
   return (
     <nav className='bg-blue-600'>
@@ -22,7 +23,7 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
-        <ul className='flex'>
+        <ul className={tokPresent ? 'hideme' :'flex'}>
           <li className='text-white mr-2'>
             <Link href='/login'>Login</Link>
           </li>
@@ -30,7 +31,7 @@ export default function Nav() {
             <Link href='/register'>Register</Link>
           </li>
         </ul>
-        <div className='inline-block relative w-28'>
+        <div className={tokPresent ?'inline-block relative w-28':'hideme'}>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
               <img src={avatarImage} />
