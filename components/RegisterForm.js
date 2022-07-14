@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 export default function Register() {
   const { setToken } = useAuth()
   const router = useRouter()
@@ -27,11 +28,11 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
+toast.error('please fill all fields correctly',{position:'bottam-right'})
       return false
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log('Please enter a valid email address.')
+      toast.error('enter a valid email address',{position:'bottam-right'})
       return false
     }
     return true
@@ -61,15 +62,14 @@ export default function Register() {
           router.push('/')
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          toast.error('a account with same email or username is already registered',{position:'bottam-right'})
         })
     }
   }
 
   return (
     <div className='bg-grey-lighter min-h-screen flex flex-col'>
+      <ToastContainer/>
       <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
         <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
           <h1 className='mb-8 text-3xl text-center'>Register</h1>
