@@ -4,6 +4,8 @@ import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
 import { API_URL } from "../utils/constants"
 import {no_auth_required} from "../middlewares/no_auth_required";
+import { toast } from "react-toastify";
+
 
 export default function RegisterForm() {
   no_auth_required();
@@ -25,8 +27,9 @@ export default function RegisterForm() {
         })
         .catch(function (err) {         
           console.log(
-            'An account using same email or username is already created'
-          )
+            'An account using same email or username is already created');
+            toast("Please Enter correct credentials");
+          
         })
 
       
