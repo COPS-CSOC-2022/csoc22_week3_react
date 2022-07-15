@@ -2,13 +2,14 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { useAuth } from '../context/auth'
-/**
- *
- * @todo Condtionally render login/register and Profile name in NavBar
- */
+import { useState ,useEffect } from 'react'
+
 
 export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
+  const { logout, profileName, avatarImage ,token } = useAuth()
+  const [tokPresent,settokPresent] = useState(true)
+
+  useEffect(()=>{(token)?settokPresent(true):settokPresent(false)},[token])
 
   return (
     <nav className='bg-blue-600'>
@@ -22,19 +23,19 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
-        <ul className='flex'>
-          <li className='text-white mr-2'>
+        <ul className={tokPresent ? 'hideme' :'flex'}>
+          <li className='text-white mr-5'>
             <Link href='/login'>Login</Link>
           </li>
-          <li className='text-white'>
+          <li className='text-white mr-5'>
             <Link href='/register'>Register</Link>
           </li>
         </ul>
-        <div className='inline-block relative w-28'>
+        <div className={tokPresent ?'inline-block relative w-35':'hideme'}>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
-              <img src={avatarImage} />
-              <span className='mr-1'>{profileName}</span>
+              <img className='mr-1' src={avatarImage} />
+              <span className='ml-1 mr-1'>{profileName}</span>
               <svg
                 className='fill-current h-4 w-4'
                 xmlns='http://www.w3.org/2000/svg'

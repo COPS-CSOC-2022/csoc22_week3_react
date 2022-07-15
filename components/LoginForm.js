@@ -1,11 +1,37 @@
+import router from "next/router";
+import {No_Auth_req} from "../middlewares/no_auth_required"
+import { useState } from "react";
+import { useAuth } from "../context/auth";
+import axios from '../utils/axios'
+import { toast } from "react-toastify";
+
 export default function RegisterForm() {
-  const login = () => {
-    /***
-     * @todo Complete this function.
-     * @todo 1. Write code for form validation.
-     * @todo 2. Fetch the auth token from backend and login the user.
-     * @todo 3. Set the token in the context (See context/auth.js)
-     */
+  No_Auth_req();
+  const [username,setUserName] = useState("");
+  const [password,setPassword] = useState("");
+  const {setToken} = useAuth();
+  const Login = () => {
+        
+    if (username === '' || password === '') {
+      toast.warn('Do not use empty fields!',{position:"top-center",theme:"colored"});
+      return;
+    }
+    const dataForApiRequest = {
+      username: username,
+      password: password
+    }
+
+    axios.post(
+      'auth/login/',
+      dataForApiRequest,
+    ).then(function({data, status}) {
+      setToken(data.token);
+      toast.success('Login was successful!!',{position:"top-center",theme:"colored"})
+      router.reload();
+    }).catch(function(err) {
+      toast.error('Invalid credentials! :(',{position:"top-center",theme:"colored"});
+      console.log(err);
+    })
   }
 
   return (
@@ -19,6 +45,8 @@ export default function RegisterForm() {
             name='inputUsername'
             id='inputUsername'
             placeholder='Username'
+            value={username}
+            onChange={(event) => setUserName(event.target.value)}
           />
 
           <input
@@ -27,12 +55,14 @@ export default function RegisterForm() {
             name='inputPassword'
             id='inputPassword'
             placeholder='Password'
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           />
 
           <button
             type='submit'
             className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1'
-            onClick={login}
+            onClick={Login}
           >
             Login
           </button>
