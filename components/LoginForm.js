@@ -3,7 +3,7 @@ import {No_Auth_req} from "../middlewares/no_auth_required"
 import { useState } from "react";
 import { useAuth } from "../context/auth";
 import axios from '../utils/axios'
-import {API_URL} from "../utils/constants"
+import { toast } from "react-toastify";
 
 export default function RegisterForm() {
   No_Auth_req();
@@ -13,7 +13,7 @@ export default function RegisterForm() {
   const Login = () => {
         
     if (username === '' || password === '') {
-      alert("Do not use empty fields!");
+      toast.warn('Do not use empty fields!',{position:"top-center",theme:"colored"});
       return;
     }
     const dataForApiRequest = {
@@ -26,10 +26,10 @@ export default function RegisterForm() {
       dataForApiRequest,
     ).then(function({data, status}) {
       setToken(data.token);
+      toast.success('Login was successful!!',{position:"top-center",theme:"colored"})
       router.reload();
-      alert('Login was successful!!')
     }).catch(function(err) {
-      alert('Invalid credentials! :(');
+      toast.error('Invalid credentials! :(',{position:"top-center",theme:"colored"});
       console.log(err);
     })
   }

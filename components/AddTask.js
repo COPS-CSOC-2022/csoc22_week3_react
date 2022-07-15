@@ -1,17 +1,14 @@
 import { useState } from "react"
 import axios from "../utils/axios";
 import { useAuth } from "../context/auth"
-import { position } from "tailwindcss/lib/plugins";
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function AddTask() {
   const [newtodo,setNewTodo]=useState('');
   const {token} = useAuth();
   const addTask = () => {
-    /**
-     * @todo Complete this function.
-     * @todo 1. Send the request to add the task to the backend server.
-     * @todo 2. Add the task in the dom.
-     */
+    
     const dataToPost={
       "title": newtodo
     }
@@ -26,9 +23,9 @@ export default function AddTask() {
       })
       .then((res)=>{
       setNewTodo('');
-      alert("Task added succesfully!!");
+      toast.success('Task added succesfully!!',{position:"bottom-right",theme:"colored"});
     }).catch((err)=>{
-      // alert("Some error Occured!")
+      toast.error('Some error Occured!',{position:"bottom-right",theme:"colored"})
       console.log(err);
     })
 

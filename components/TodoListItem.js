@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { data } from "autoprefixer";
 import axios from "../utils/axios";
 import { useState } from "react";
-import processPlugins from "tailwindcss/lib/util/processPlugins";
 import { useAuth } from "../context/auth";
 import { API_URL} from "../utils/constants"
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import router from "next/router";
 
 
 export default function TodoListItem(props) {
@@ -27,8 +28,13 @@ export default function TodoListItem(props) {
           Authorization: 'Token ' + token,
         }
       }
-    ).then(()=>alert("Task Deleted!"))
-    .catch((err)=>{console.log(err);})
+    ).then(()=>{
+      toast.success('Task Deleted!',{position:"bottom-right",theme:"colored"})
+    })
+    .catch((err)=>{
+      console.log(err);
+      toast.error('Some error Occured!',{position:"bottom-right",theme:"colored"});
+    })
   }
 
   const updateTask = (id) => {
@@ -42,12 +48,19 @@ export default function TodoListItem(props) {
         data : {title : todo}
       }).then((res)=>{
         setEditActive(false)
-        alert("Task updated!")
+        toast.success('Task updated!',{position:"bottom-right",theme:"colored"})
       })
-      .catch((err)=>{console.log(err);})
+      .catch((err)=>{
+        console.log(err);
+        toast.error('Some error Occured!',{position:"bottom-right",theme:"colored"});;
+      })
       
     }
-    else console.log("Token not present");
+    else {
+      toast.warn('Token not present',{position:"top-center",theme:"colored"});
+      toast.info('Please login to continue..',{position:"top-center",theme:"colored"})
+      router.push('/login');
+    }
     
       
   }

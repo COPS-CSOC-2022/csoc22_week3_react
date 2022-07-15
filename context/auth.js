@@ -2,7 +2,8 @@ import { useEffect, useState, useContext, createContext } from 'react'
 import { useCookies } from 'react-cookie'
 import axios from '../utils/axios'
 import { useRouter } from 'next/router'
-
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const AuthContext = createContext({})
 
@@ -20,8 +21,8 @@ export const AuthProvider = ({ children }) => {
     setProfileName('')
     setAvatarImage('#')
     deleteToken()
+    toast.info('Logged out!',{position:"top-center",theme:"colored"})
     router.reload();
-    alert('Logged out!')
   }
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export const AuthProvider = ({ children }) => {
           console.log(token);
         })
         .catch((err) => {
-          alert('Some error occurred')
+          toast.error('Some error occurred',{position:"top-center",theme:"colored"})
           console.log(err);
         })
     }

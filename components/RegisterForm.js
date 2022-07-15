@@ -3,6 +3,8 @@ import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { No_Auth_req } from '../middlewares/no_auth_required'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register() {
   const { setToken } = useAuth()
@@ -29,11 +31,11 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
+      toast.warn('Please fill all the fields correctly.',{position:"top-center",theme:"colored"})
       return false
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log('Please enter a valid email address.')
+      toast.warn('Please enter a valid email address.',{position:"top-center",theme:"colored"})
       return false
     }
     return true
@@ -45,7 +47,7 @@ export default function Register() {
     if (
       registerFieldsAreValid(firstName, lastName, email, username, password)
     ) {
-      console.log('Please wait...')
+      toast.info('Please wait...',{position:"top-center",theme:"colored"})
 
       const dataForApiRequest = {
         name: firstName + ' ' + lastName,
@@ -60,11 +62,13 @@ export default function Register() {
       )
         .then(function ({ data, status }) {
           setToken(data.token)
+          toast.success('Registration Successful!!',{position:"top-center",theme:"colored"})
           router.push('/')
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
+          toast.warn(
+            'An account using same email or username is already created',
+            {position:"top-center",theme:"colored"}
           )
         })
     }

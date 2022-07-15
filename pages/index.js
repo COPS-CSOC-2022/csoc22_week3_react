@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import {Auth_req} from '../middlewares/auth_required'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Home() {
@@ -56,6 +58,7 @@ export default function Home() {
           
         </ul>
       </center>
+      <ToastContainer />
     </div>
   )
 }

@@ -24,18 +24,18 @@ export default function Nav() {
           </li>
         </ul>
         <ul className={tokPresent ? 'hideme' :'flex'}>
-          <li className='text-white mr-2'>
+          <li className='text-white mr-5'>
             <Link href='/login'>Login</Link>
           </li>
-          <li className='text-white'>
+          <li className='text-white mr-5'>
             <Link href='/register'>Register</Link>
           </li>
         </ul>
-        <div className={tokPresent ?'inline-block relative w-28':'hideme'}>
+        <div className={tokPresent ?'inline-block relative w-35':'hideme'}>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
-              <img src={avatarImage} />
-              <span className='mr-1'>{profileName}</span>
+              <img className='mr-1' src={avatarImage} />
+              <span className='ml-1 mr-1'>{profileName}</span>
               <svg
                 className='fill-current h-4 w-4'
                 xmlns='http://www.w3.org/2000/svg'
