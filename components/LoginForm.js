@@ -1,11 +1,40 @@
+import React, { useState } from 'react'
+import axios from '../utils/axios'
+import { useAuth } from '../context/auth'
+import { useRouter } from 'next/router'
+import { API_URL } from "../utils/constants"
+import {no_auth_required} from "../middlewares/no_auth_required";
+import { toast } from "react-toastify";
+
+
 export default function RegisterForm() {
+  no_auth_required();
+  const { setToken } = useAuth()
+  const router = useRouter()
+  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
   const login = () => {
-    /***
-     * @todo Complete this function.
-     * @todo 1. Write code for form validation.
-     * @todo 2. Fetch the auth token from backend and login the user.
-     * @todo 3. Set the token in the context (See context/auth.js)
-     */
+      axios({
+        url : API_URL+"auth/login/",
+        method : "post",
+        data : {username: username , password: password}
+      }
+      )
+        .then(function ({ data, status }) {
+          setToken(data.token)
+          router.reload()
+          console.log("success")
+        })
+        .catch(function (err) {         
+          console.log(
+            'An account using same email or username is already created');
+            toast("Please Enter correct credentials");
+          
+        })
+
+      
+    
+
   }
 
   return (
@@ -18,7 +47,9 @@ export default function RegisterForm() {
             className='block border border-grey-light w-full p-3 rounded mb-4'
             name='inputUsername'
             id='inputUsername'
-            placeholder='Username'
+            placeholder='username'
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
           />
 
           <input
@@ -27,6 +58,8 @@ export default function RegisterForm() {
             name='inputPassword'
             id='inputPassword'
             placeholder='Password'
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
 
           <button

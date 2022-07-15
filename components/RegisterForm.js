@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import {no_auth_required} from "../middlewares/no_auth_required";
 
 export default function Register() {
+  no_auth_required();
   const { setToken } = useAuth()
   const router = useRouter()
 
@@ -52,9 +54,11 @@ export default function Register() {
         password: password,
       }
 
-      axios.post(
-        'auth/register/',
-        dataForApiRequest,
+      axios({
+      url : 'https://todo-app-csoc.herokuapp.com/auth/register/',
+      method : "post",
+      data : dataForApiRequest
+      }
       )
         .then(function ({ data, status }) {
           setToken(data.token)

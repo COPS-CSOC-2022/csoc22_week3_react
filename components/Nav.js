@@ -8,7 +8,7 @@ import { useAuth } from '../context/auth'
  */
 
 export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
+  const { logout, profileName, avatarImage,token } = useAuth()
 
   return (
     <nav className='bg-blue-600'>
@@ -22,6 +22,7 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
+        
         <ul className='flex'>
           <li className='text-white mr-2'>
             <Link href='/login'>Login</Link>
@@ -33,8 +34,8 @@ export default function Nav() {
         <div className='inline-block relative w-28'>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
-              <img src={avatarImage} />
-              <span className='mr-1'>{profileName}</span>
+              <img src={token!==undefined&&avatarImage} />
+              <span className='mr-1'>{token!==undefined&&profileName}</span>
               <svg
                 className='fill-current h-4 w-4'
                 xmlns='http://www.w3.org/2000/svg'
@@ -56,6 +57,7 @@ export default function Nav() {
             </ul>
           </div>
         </div>
+        
       </ul>
     </nav>
   )
