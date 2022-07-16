@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
+import router from 'next/router';
 import { useAuth } from '../context/auth'
 /**
  *
@@ -8,7 +9,7 @@ import { useAuth } from '../context/auth'
  */
 
 export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
+  const { logout, profileName, avatarImage, token } = useAuth()
 
   return (
     <nav className='bg-blue-600'>
@@ -48,7 +49,11 @@ export default function Nav() {
                 <a
                   className='rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap'
                   href='#'
-                  onClick={logout}
+                  onClick={() => {
+                      logout()
+                      window.location.href = "/login"
+                    }
+                  }
                 >
                   Logout
                 </a>
