@@ -4,18 +4,24 @@ import { useAuth } from "../context/auth"
 import axios from "../utils/axios"
 import { API_URL } from "../utils/constants"
 import toast, { Toaster } from 'react-hot-toast';
+import { useEffect } from "react";
 
 export default function TodoListItem({ title, id, getTasks }) {
   const { token } = useAuth()
   const [editStatus, setEditStatus] = useState(false)
   const [updateData,setupdateData] = useState('')
+  const [input, setInput] = useState(title)
   
+  useEffect(() => {
+    console.log("input changed!")
+  }, [input])
+
   const editTask = (id) => {
     /**
      * @todo Complete this function.
      * @todo 1. Update the dom accordingly
      */
-
+    
     setEditStatus(!editStatus)
   }
 
@@ -79,6 +85,10 @@ export default function TodoListItem({ title, id, getTasks }) {
           type='text'
           className={`${(!editStatus) ? 'hideme' : ""} font-body appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input`}
           placeholder='Edit The Task'
+          value={input} 
+          onInput={(e) => {
+            setInput(e.target.value)
+          }}
           onChange={(e)=>setupdateData(e.target.value)}
         />
          <div id={'done-button-'+id} className={`${(!editStatus) ? 'hideme' : ""}`}>
@@ -97,7 +107,9 @@ export default function TodoListItem({ title, id, getTasks }) {
           <button
             style={{ marginRight: '5px' }}
             type='button'
-            onClick={() => editTask(id)}
+            onClick={() => {
+              editTask(id)
+            }}
             className='bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 py-2'
           >
             <img
