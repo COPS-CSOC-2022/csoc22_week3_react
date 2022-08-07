@@ -91,7 +91,7 @@ Here is the breakdown of the points related to each task.
 | Get tasks | 25 |
 | Update Task | 35 |
 | Delete Task | 35 |
-| Bonus | 30 |
+| Bonus for Submission | 30 |
 |**Total**|180|
 
 ## Judging
