@@ -85,14 +85,14 @@ Here is the breakdown of the points related to each task.
 
 |**Task**|**Points**  |
 |--|--|
-| Auth Middleware | 10 |
+| Auth Middleware | 15 |
 | Login Function | 15 |
 | Add task | 25 |
-| Get tasks | 30 |
-| Update Task | 40 |
-| Delete Task | 20 |
-| UI Improvement | 10 |
-|**Total**|150|
+| Get tasks | 25 |
+| Update Task | 35 |
+| Delete Task | 35 |
+| Bonus for Submission | 30 |
+|**Total**|180|
 
 ## Judging
 Judging would be done on the basis of your implementation and authenticity.
