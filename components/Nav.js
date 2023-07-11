@@ -63,7 +63,7 @@ useEffect(() => {
           <li>
             <Link href="/" passHref={true}>
               <a>
-                <h1 className='text-white font-bold text-xl'>Project Management Dashboard</h1>
+                <h1 className='text-white font-bold text-xl'>Projecto</h1>
               </a>
             </Link>
           
